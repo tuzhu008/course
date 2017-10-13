@@ -3,13 +3,13 @@
 Create React apps with no build configuration.
 创建一个没有构建配置的React应用。
 
-* [Getting Started][2] – How to create a new app.
-* [User Guide][3] – How to develop apps bootstrapped with Create React App.
+* [起步][2] – 怎样创建一个新应用.
+* [用户指南][3] – 怎样使用Create-React-App引导开发应用 .
 
-Create React App works on macOS, Windows, and Linux.<br>
-If something doesn’t work, please [file an issue][4].
+Create React App 可以在 macOS, Windows, and Linux.上运行<br>
+如果有东西不工作， 请 [提问][4].
 
-## Quick Overview
+## 概述
 
 ```sh
 npm install -g create-react-app
@@ -19,43 +19,43 @@ cd my-app/
 npm start
 ```
 
-Then open [http://localhost:3000/][5] to see your app.<br>
-When you’re ready to deploy to production, create a minified bundle with `npm run build`.
+然后打开[http://localhost:3000/][5] 就能看到新创建的应用了.<br>
+当您准备好部署到生产环境时, 使用`npm run build`创建一个经过压缩的包.
 
 <img src='https://camo.githubusercontent.com/506a5a0a33aebed2bf0d24d3999af7f582b31808/687474703a2f2f692e696d6775722e636f6d2f616d794e66434e2e706e67' width='600' alt='npm start'>
 
-### Get Started Immediately
+### 立即开始
 
-You **don’t** need to install or configure tools like Webpack or Babel.<br>
-They are preconfigured and hidden so that you can focus on the code.
+你 **不** 需要安装或配置像Webpac或Babel这样的工具。<br>
+它们是预配置和隐藏的因此你可以专注于代码。
 
-Just create a project, and you’re good to go.
+只需要创建一个项目，你就可以开始了。
 
-## Getting Started
+## 开始
 
-### Installation
+### 安装
 
-Install it once globally:
+全局安装:
 
 ```sh
 npm install -g create-react-app
 ```
 
-**You’ll need to have Node \>= 6 on your machine**. You can use [nvm][6] to easily switch Node versions between different projects.
+**你需要在设备已经安装node \>= 6 **. 你可以使用 [nvm][6] 在Node不同的版本间轻松切换.
 
-**This tool doesn’t assume a Node backend**. The Node installation is only required for Create React App itself.
+**这个工具不处理Node后端**. 这个Node 仅需要安装Create-React-App 本身。
 
-### Creating an App
+### 创建一个应用
 
-To create a new app, run:
+运行下面代码，创建一个新应用:
 
 ```sh
 create-react-app my-app
 cd my-app
 ```
 
-It will create a directory called `my-app` inside the current folder.<br>
-Inside that directory, it will generate the initial project structure and install the transitive dependencies:
+它将在当前目录下创建一个名为 `my-app` 的应用.<br>
+在该目录, 它将生成初始的项目结构并安装传递依赖项:
 
 ```
 my-app
@@ -77,162 +77,162 @@ my-app
     └── registerServiceWorker.js
 ```
 
-No configuration or complicated folder structures, just the files you need to build your app.<br>
-Once the installation is done, you can run some commands inside the project folder:
+没有配置或复杂的文件结构, 只需要创建应用所需的文件.<br>
+安装完成后，你可以在项目文件夹中运行一些命令:
 
 ### `npm start` or `yarn start`
 
-Runs the app in development mode.<br>
-Open [http://localhost:3000][7] to view it in the browser.
+在开发模式下运行应用程序.<br>
+打开 [http://localhost:3000][7] 在浏览器中查看.
 
-The page will automatically reload if you make changes to the code.<br>
-You will see the build errors and lint warnings in the console.
+如果您对代码进行更改，页面将自动重新加载.<br>
+你将在控制台中看到构建错误和lint警告.
 
 <img src='https://camo.githubusercontent.com/41678b3254cf583d3186c365528553c7ada53c6e/687474703a2f2f692e696d6775722e636f6d2f466e4c566677362e706e67' width='600' alt='Build errors'>
 
 ### `npm test` or `yarn test`
 
-Runs the test watcher in an interactive mode.<br>
-By default, runs tests related to files changed since the last commit.
+以交互模式运行测试监视者.<br>
+默认情况下，运行与上次提交后更改的文件相关的测试.
 
 [Read more about testing.][8]
 
 ### `npm run build` or `yarn build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+构建产品应用到 `build` 文件夹.<br>
+它在生产模式中正确地捆绑了响应，并优化了构建以获得最佳性能.
 
-The build is minified and the filenames include the hashes.<br>
-By default, it also [includes a service worker][9] so that your app loads from local cache on future visits.
+构建是缩小的，文件名包括哈希表.<br>
+默认情况下，它还 [includes a service worker][9] 以便您的应用程序在未来访问时从本地缓存加载.
 
-Your app is ready to be deployed.
+到此，你的应用已经准备好了.
 
-## User Guide
+## 用户指南
 
-The [User Guide][10] includes information on different topics, such as:
+[用户指南][10] 包含不同主体的信息, 比如:
 
-- [Updating to New Releases][11]
-- [Folder Structure][12]
-- [Available Scripts][13]
-- [Supported Language Features and Polyfills][14]
-- [Syntax Highlighting in the Editor][15]
-- [Displaying Lint Output in the Editor][16]
-- [Formatting Code Automatically][17]
-- [Debugging in the Editor][18]
-- [Changing the Page `<title>`][19]
-- [Installing a Dependency][20]
-- [Importing a Component][21]
-- [Code Splitting][22]
-- [Adding a Stylesheet][23]
-- [Post-Processing CSS][24]
-- [Adding a CSS Preprocessor (Sass, Less etc.)][25]
-- [Adding Images, Fonts, and Files][26]
-- [Using the `public` Folder][27]
-- [Using Global Variables][28]
-- [Adding Bootstrap][29]
-- [Adding Flow][30]
-- [Adding Custom Environment Variables][31]
-- [Can I Use Decorators?][32]
-- [Integrating with an API Backend][33]
-- [Proxying API Requests in Development][34]
-- [Using HTTPS in Development][35]
-- [Generating Dynamic `<meta>` Tags on the Server][36]
-- [Pre-Rendering into Static HTML Files][37]
-- [Running Tests][38]
-- [Developing Components in Isolation][39]
-- [Making a Progressive Web App][40]
-- [Analyzing the Bundle Size][41]
-- [Deployment][42]
-- [Advanced Configuration][43]
-- [Troubleshooting][44]
+- [Updating to New Releases  更新到最新版本][11]
+- [Folder Structure 文件夹结构][12]
+- [Available Scripts 可用的脚本][13]
+- [Supported Language Features and Polyfills 支持的语言特性和兼容的旧环境][14]
+- [Syntax Highlighting in the Editor 编辑器的语法高亮显示 ][15]
+- [Displaying Lint Output in the Editor 在编辑器中显示lint输出][16]
+- [Formatting Code Automatically 自动格式化代码][17]
+- [Debugging in the Editor 在编辑器中调试 ][18]
+- [Changing the Page `<title>` 改变页面的`<title>`][19]
+- [Installing a Dependency 安装一个依赖][20]
+- [Importing a Component 导入一个组件][21]
+- [Code Splitting 代码分割][22]
+- [Adding a Stylesheet 添加一个样式表][23]
+- [Post-Processing CSS 后处理的CSS ][24]
+- [Adding a CSS Preprocessor (Sass, Less etc.) 添加一个CSS预处理器][25]
+- [Adding Images, Fonts, and Files 添加图像、字体和文件 ][26]
+- [Using the `public` Folder 使用`public`文件夹][27]
+- [Using Global Variables 使用全局变量][28]
+- [Adding Bootstrap 添加Bootstrap][29]
+- [Adding Flow 添加Flow][30]
+- [Adding Custom Environment Variables 添加自定义的环境变量][31]
+- [Can I Use Decorators?  我可以使用修饰符吗？][32]
+- [Integrating with an API Backend  与后端API集成][33]
+- [Proxying API Requests in Development 在开发中代理API请求][34]
+- [Using HTTPS in Development 在开发中使用HTTPS][35]
+- [Generating Dynamic `<meta>` Tags on the Server 在服务器上生成动态的`<meta>`标签][36]
+- [Pre-Rendering into Static HTML Files 预渲染到静态HTML文件][37]
+- [Running Tests 运行测试][38]
+- [Developing Components in Isolation 独立开发组件][39]
+- [Making a Progressive Web App 制作一个渐进的网页应用][40]
+- [Analyzing the Bundle Size 分析包的大小][41]
+- [Deployment 部署][42]
+- [Advanced Configuration 高级配置][43]
+- [Troubleshooting 故障][44]
 
-A copy of the user guide will be created as `README.md` in your project folder.
+在项目文件夹中会创建一个用户指南`README.md`的副本。
 
-## How to Update to New Versions?
+## 如何更新版本?
 
-Please refer to the [User Guide][45] for this and other information.
+请参考 [用户指南][45] 来获得信息.
 
 ## Philosophy
 
-* **One Dependency:** There is just one build dependency. It uses Webpack, Babel, ESLint, and other amazing projects, but provides a cohesive curated experience on top of them.
+* **一个依赖:** 只有一个构建依赖关系.它使用了 Webpack, Babel, ESLint, 和其他一些项目, 但在他们上面提供了一个紧密的体验。
 
-* **No Configuration Required:** You don't need to configure anything. Reasonably good configuration of both development and production builds is handled for you so you can focus on writing code.
+* **不需要配置:** 你不需要配置任何东西. 开发和生产构建的良好配置都是为您处理的，因此您可以专注于编写代码.
 
-* **No Lock-In:** You can “eject” to a custom setup at any time. Run a single command, and all the configuration and build dependencies will be moved directly into your project, so you can pick up right where you left off.
+* **没有锁定:** 您可以在任何时候“弹出”到自定义设置。运行一个命令，所有配置和构建依赖项都将直接移动到您的项目中，在离开的地方也可以接着编写。 
 
-## Why Use This?
+## 为什么使用它?
 
-**If you’re getting started** with React, use `create-react-app` to automate the build of your app. There is no configuration file, and `react-scripts` is the only extra build dependency in your `package.json`. Your environment will have everything you need to build a modern React app:
+**如果你开始** 伴随 React, 使用 `create-react-app` 来自动构建的应用. 没有配置文件, `react-scripts` 是`package.json`中唯一的额外构建依赖。你的环境将会有你构建一个现代的React应用所需的一切:
 
-* React, JSX, ES6, and Flow syntax support.
-* Language extras beyond ES6 like the object spread operator.
-* A dev server that lints for common errors.
-* Import CSS and image files directly from JavaScript.
-* Autoprefixed CSS, so you don’t need `-webkit` or other prefixes.
-* A `build` script to bundle JS, CSS, and images for production, with sourcemaps.
-* An offline-first [service worker][46] and a [web app manifest][47], meeting all the [Progressive Web App][48] criteria.
+* React, JSX, ES6, and Flow 语法支持.
+* ES6以外的语言附加，比如 object spread operator.
+* 常见错误的开发服务.
+* 从JavaScript直接导入CSS和image文件.
+* 自动添加 CSS前缀, 所以不需要手动添加`-webkit` 或者 其他前缀.
+*  `build` 脚本使用sourcemaps来打包 JS, CSS, and images 来构建产品.
+* 首先 [service worker][46] 和 一个 [web app manifest][47], 汇集所有的[渐进网页应用][48] 标准.
 
-**The feature set is intentionally limited**. It doesn’t support advanced features such as server rendering or CSS modules. The tool is also **non-configurable** because it is hard to provide a cohesive experience and easy updates across a set of tools when the user can tweak anything.
+** 这个特性集是有意限制的**. 它不支持高级功能，比如服务器渲染或CSS模块. 该工具 **不可配置** 因为当用户可以对任何东西进行调整时，很难提供一套完整的体验和简单的更新。
 
-**You don’t have to use this.** Historically it has been easy to [gradually adopt][49] React. However many people create new single-page React apps from scratch every day. We’ve heard [loud][50] and [clear][51] that this process can be error-prone and tedious, especially if this is your first JavaScript build stack. This project is an attempt to figure out a good way to start developing React apps.
+**你不需要使用这个.** 从历史上来看，人们很容易[ 逐渐采用 ][49]React.然而每天许多人都从头创建一个单页React应用。我们However many people create new single-page React apps from scratch every day. 我们已经听到 [loud][50] 和 [clear][51] that 这个过程很容易出错，特别是如果这是你第一个JavaScript构建的堆栈。这个项目试图找出一种开始开发React应用程序的好方法。
 
-### Converting to a Custom Setup
+### 转为自定义设置
 
-**If you’re a power user** and you aren’t happy with the default configuration, you can “eject” from the tool and use it as a boilerplate generator.
+**如果你是一个重度用户** 你不喜欢默认的配置, 您可以从该工具中“eject”并将其用作样板生成器 .
 
-Running `npm run eject` copies all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. Commands like `npm start` and `npm run build` will still work, but they will point to the copied scripts so you can tweak them. At this point, you’re on your own.
+运行 `npm run eject` 将所有配置文件和传递依赖项(Webpack、Babel、ESLint等)复制到您的项目中，这样您就可以完全控制它们了。. 像 `npm start` and `npm run build` 这样的命令仍然有效，但他们会指向复制的脚本，这样你就可以对他们进行调整。在这点上，你可以按你的来。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**注意: 这是一个单向操作. 一旦 `eject`, 就不能回去了!**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+你不需要使用 `eject`. 精心设计的特性集适合于小型和中型部署, 你不应该觉得必须得使用这个功能. 但是我们知道如果你不能在你准备好它的时候对它进行定制，那么这个工具就没有用处了.
 
-## Limitations
+## 局限性
 
-Some features are currently **not supported**:
+目前的一些特性 **不被支持**:
 
-* Server rendering.
-* Some experimental syntax extensions (e.g. decorators).
-* CSS Modules (see [^2285](https://github.com/facebookincubator/create-react-app/pull/2285)).
-* Importing LESS or Sass directly ([but you still can use them][52]).
-* Hot reloading of components.
+* 服务端渲染.
+* 一些实验语法扩展 (比如 修饰符).
+* CSS 模块 (see [^2285](https://github.com/facebookincubator/create-react-app/pull/2285)).
+* 直接导入 LESS 或者 Sass ([但你仍可以使用它们][52]).
+* 热加载组件.
 
-Some of them might get added in the future if they are stable, are useful to majority of React apps, don’t conflict with existing tools, and don’t introduce additional configuration.
+如果它们是稳定的，它们中的一些可能会在将来被添加进来，它们对大多数的React应用程序有用，不与现有的工具冲突，也不引入额外的配置..
 
-## What’s Inside?
+## 内部结构?
 
-The tools used by Create React App are subject to change.
-Currently it is a thin layer on top of many amazing community projects, such as:
+Create React App 所使用的工具需要更改。
+目前它包含了许多非常好的社区项目，比如:
 
 * [webpack][53] with [webpack-dev-server][54], [html-webpack-plugin][55] and [style-loader][56]
-* [Babel][57] with ES6 and extensions used by Facebook (JSX, [object spread][58], [class properties][59])
-* [Autoprefixer][60]
+* [Babel][57] 使用ES6和Facebook使用的扩展 (JSX, [object spread][58], [class properties][59])
+* [Autoprefixer  自动前缀][60]
 * [ESLint][61]
 * [Jest][62]
 * and others.
 
-All of them are transitive dependencies of the provided npm package.
+他们都提供传递依赖的npm 包.
 
-## Contributing
+## 贡献
 
-We'd love to have your helping hand on `create-react-app`! See [CONTRIBUTING.md][63] for more information on what we're looking for and how to get started.
+我们很乐意在 `create-react-app`上帮你的忙! 查看 [CONTRIBUTING.md][63] 了解更多关于我们正在寻找什么以及如何开始的信息.
 
 ## React Native
 
-Looking for something similar, but for React Native?<br>
-Check out [Create React Native App][64].
+寻找类似的东西, 但对 React Native来说?<br>
+查看 [创建 React Native 应用][64].
 
-## Acknowledgements
+## 感谢
 
-We are grateful to the authors of existing related projects for their ideas and collaboration:
+我们感谢现有相关项目的作者，他们的想法和合作:
 
 * [@eanplatter][65]
 * [@insin][66]
 * [@mxstbr][67]
 
-## Alternatives
+## 替代选择
 
-If you don’t agree with the choices made in this project, you might want to explore alternatives with different tradeoffs.<br>
-Some of the more popular and actively maintained ones are:
+如果您不同意这个项目中所做的选择，那么您可能想要尝试使用不同的折衷方案.<br>
+一些更受欢迎的和积极维护的:
 
 * [insin/nwb][68]
 * [mozilla-neutrino/neutrino-dev][69]
@@ -242,7 +242,7 @@ Some of the more popular and actively maintained ones are:
 * [gatsbyjs/gatsby][73]
 * [electrode-io/electrode][74]
 
-Notable alternatives also include:
+值得注意的选择还包括:
 
 * [enclave][75]
 * [motion][76]
@@ -255,8 +255,8 @@ Notable alternatives also include:
 * [sku][83]
 * [gluestick][84]
 
-You can also use module bundlers like [webpack][85] and [Browserify][86] directly.<br>
-React documentation includes [a walkthrough][87] on this topic.
+你也可以直接使用像 [webpack][85] 和 [Browserify][86] 这样的模块打包器.<br>
+React 文档 包括 [a walkthrough][87]这个主题.
 
 [1]:	https://travis-ci.org/facebookincubator/create-react-app
 [2]:	#getting-started

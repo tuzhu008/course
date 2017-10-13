@@ -259,7 +259,7 @@ Create React App 所使用的工具需要更改。
 React 文档 包括 [a walkthrough][87]这个主题.
 
 [1]:	https://travis-ci.org/facebookincubator/create-react-app
-[2]:	#getting-started
+[2]:	#%E8%B5%B7%E6%AD%A5
 [3]:	https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md
 [4]:	https://github.com/facebookincubator/create-react-app/issues/new
 [5]:	http://localhost:3000/

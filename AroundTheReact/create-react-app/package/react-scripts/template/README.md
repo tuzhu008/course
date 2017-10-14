@@ -454,18 +454,18 @@ export default App;
 
 This will make `moduleA.js` and all its unique dependencies as a separate chunk that only loads after the user clicks the 'Load' button.
 
-You can also use it with ` syntax if you prefer it.
-`这将使`moduleA.js`及其所有独特的依赖项作为单独的块，只有在用户点击“Load”按钮后才会加载。
+You can also use it with \` syntax if you prefer it.
+`这将使`moduleA.js\`及其所有独特的依赖项作为单独的块，只有在用户点击“Load”按钮后才会加载。
 
 如果您愿意，也可以使用`async` / `await`语法
 
 ### With React Router
 React路由
-If you are using React Router check out  on how to use code splitting with it. You can find the companion GitHub repository  如果您正在使用React Router，请参阅[ 本教程 ][143]，了解如何使用代码与之分离。您可以在这里[这里][144] 找到GitHub的GitHub库.
+如果您正在使用React Router，请参阅[ 本教程 ][143]，了解如何使用代码与之分离。您可以在这里[这里][144] 找到GitHub的GitHub库.
 
 ## Adding a Stylesheet
 
-This project setup uses [Webpack][145] for handling all assets. Webpack offers a custom way of “extending” the concept of `import` beyond JavaScript. To express that a JavaScript file depends on a CSS file, you need to **import the CSS from the JavaScript file**:
+这个项目设置使用 [Webpack][145]来处理所有的资产。Webpack提供了一种自定义的“扩展”`import` 概念，超越了JavaScript的概念。为了表示JavaScript文件依赖于CSS文件，您需要**从JavaScript文件中导入CSS**:
 
 ### `Button.css`
 
@@ -489,17 +489,17 @@ class Button extends Component {
 }
 ```
 
-**This is not required for React** but many people find this feature convenient. You can read about the benefits of this approach [here][146]. However you should be aware that this makes your code less portable to other build tools and environments than Webpack.
+**这不是React必须的** 但是很多人觉得这个功能很方便。您可以阅读此方法的好处[here][146]。然而，你应该意识到，这使得你的代码迁移到其他构建工具和浏览器比Webpack更不方便。  
 
-In development, expressing dependencies this way allows your styles to be reloaded on the fly as you edit them. In production, all CSS files will be concatenated into a single minified `.css` file in the build output.
+In development, expressing dependencies this way allows your styles to be reloaded on the fly as you edit them. In production, all CSS files will be concatenated into a single minified `.css` file in the build output. 在开发中，通过这种方式表示依赖关系，在编辑它们时，可以让您的样式重新加载。在生产过程中，所有CSS文件都将被连接到构建输出的一个单一的小`css`文件中。
 
-If you are concerned about using Webpack-specific semantics, you can put all your CSS right into `src/index.css`. It would still be imported from `src/index.js`, but you could always remove that import if you later migrate to a different build tool.
+如果您关心的是使用Webpack-specific的语义，那么您可以将所有CSS放到`src/index.css`中。它仍然是从`src/index.js`导入的，但是如果您以后迁移到不同的构建工具，您可以删除该导入.
 
 ## Post-Processing CSS
+后处理CSS
+这个项目设置了你的CSS，并通过[ 自动调整器 ][147]自动添加了供应商前缀，这样你就不用担心它了。
 
-This project setup minifies your CSS and adds vendor prefixes to it automatically through [Autoprefixer][147] so you don’t need to worry about it.
-
-For example, this:
+比如:
 
 ```css
 .App {
@@ -509,7 +509,7 @@ For example, this:
 }
 ```
 
-becomes this:
+变这样:
 
 ```css
 .App {
@@ -526,27 +526,27 @@ becomes this:
 }
 ```
 
-If you need to disable autoprefixing for some reason, [follow this section][148].
+如果你因为某些原因需要禁用自动浅醉 , [遵循本节][148].
 
 ## Adding a CSS Preprocessor (Sass, Less etc.)
+添加CSS预处理器
+一般来说, 我们建议您不要在不同的组件上重用相同的CSS类。例如，不使用 `.Button`css类在`<AcceptButton>` 和 `<RejectButton>` 组件上。我们建议创建一个`<Button>`组件使用它自己的`.Button`样式。这样 `<AcceptButton>` 和 `<RejectButton>` 都可以被渲染 (但 [不是继承][149]).
 
-Generally, we recommend that you don’t reuse the same CSS classes across different components. For example, instead of using a `.Button` CSS class in `<AcceptButton>` and `<RejectButton>` components, we recommend creating a `<Button>` component with its own `.Button` styles, that both `<AcceptButton>` and `<RejectButton>` can render (but [not inherit][149]).
+遵循这个规则通常会使CSS预处理器变得不那么有用，因为诸如mixin和嵌套之类的特性被组件组合所取代。但是，如果您觉得它很有价值，您可以集成一个CSS预处理器。在这一过程中，我们将使用Sass，但你也可以使用Less，或者另一种选择。
 
-Following this rule often makes CSS preprocessors less useful, as features like mixins and nesting are replaced by component composition. You can, however, integrate a CSS preprocessor if you find it valuable. In this walkthrough, we will be using Sass, but you can also use Less, or another alternative.
-
-First, let’s install the command-line interface for Sass:
+首先，我们为Sass安装命令行接口:
 
 ```sh
 npm install --save node-sass-chokidar
 ```
 
-Alternatively you may use `yarn`:
+你也可以使用 `yarn`:
 
 ```sh
 yarn add node-sass-chokidar
 ```
 
-Then in `package.json`, add the following lines to `scripts`:
+然后在 `package.json`, 添加下列几行到 `scripts`:
 
 ```diff
    "scripts": {
@@ -557,41 +557,41 @@ Then in `package.json`, add the following lines to `scripts`:
      "test": "react-scripts test --env=jsdom",
 ```
 
-> Note: To use a different preprocessor, replace `build-css` and `watch-css` commands according to your preprocessor’s documentation.
+> 注意: 使用不同的预处理器, 依照你的预处理器文档替换 `build-css` 和 `watch-css` 命令。
 
-Now you can rename `src/App.css` to `src/App.scss` and run `npm run watch-css`. The watcher will find every Sass file in `src` subdirectories, and create a corresponding CSS file next to it, in our case overwriting `src/App.css`. Since `src/App.js` still imports `src/App.css`, the styles become a part of your application. You can now edit `src/App.scss`, and `src/App.css` will be regenerated.
+现在你可以重命名为 `src/App.css` 到 `src/App.scss` 并运行`npm run watch-css`. 观察者会在`src`的子目录中找到每个Sass文件，并在它旁边创建相应的CSS文件，在我们的例子中，重写`src/app.css`。  从 `src/App.js` 加载 `src/App.css`, 样式成为应用程序的一部分. 现在,您可以编辑 `src/App.scss`, and `src/App.css` 将重建.
 
-To share variables between Sass files, you can use Sass imports. For example, `src/App.scss` and other component style files could include `@import "./shared.scss";` with variable definitions.
+为了在Sass文件之间共享变量，你可以使用Sass的导入。例如, `src/App.scss`和其他组件样式文件可以包括`@import "./shared.scss";` 与变量定义.
 
-To enable importing files without using relative paths, you can add the  `--include-path` option to the command in `package.json`.
+为了在不使用相对路径的情况下导入文件，您可以向`package.json`中的命令添加`--include-path`选项。
 
 ```
 "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
 "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
 ```
 
-This will allow you to do imports like
+这将允许你进行导入
 
 ```scss
 @import 'styles/_colors.scss'; // assuming a styles directory under src/
 @import 'nprogress/nprogress'; // importing a css file from the nprogress node module
 ```
 
-At this point you might want to remove all CSS files from the source control, and add `src/**/*.css` to your `.gitignore` file. It is generally a good practice to keep the build products outside of the source control.
+此时，您可能想要从源控件中删除所有的CSS文件，并添加`src/**/*.css`到你的`.gitignore`文件。将构建产品保持在源代码控制之外通常是一种很好的做法。 
 
-As a final step, you may find it convenient to run `watch-css` automatically with `npm start`, and run `build-css` as a part of `npm run build`. You can use the `&&` operator to execute two scripts sequentially. However, there is no cross-platform way to run two scripts in parallel, so we will install a package for this:
+作为最后一步，您可能会发现运行 `npm start`时同时运行`watch-css` 很方便，`build-css` 作为`npm run build`的一部分运行也很方便。您可以使用`&&`操作符按顺序执行两个脚本。但是，没有一个跨平台的方法可以并行运行两个脚本，因此我们将为这个安装一个包: 
 
 ```sh
 npm install --save npm-run-all
 ```
 
-Alternatively you may use `yarn`:
+也可以使用 `yarn`:
 
 ```sh
 yarn add npm-run-all
 ```
 
-Then we can change `start` and `build` scripts to include the CSS preprocessor commands:
+然后我们更改 `start` 和 `build` 脚本来包含CSS 预处理器指令:
 
 ```diff
    "scripts": {
@@ -607,29 +607,28 @@ Then we can change `start` and `build` scripts to include the CSS preprocessor c
    }
 ```
 
-Now running `npm start` and `npm run build` also builds Sass files.
+现在运行 `npm start` 和 `npm run build` 还会构建Sass文件.
 
-**Why `node-sass-chokidar`?**
+**为什么需要 `node-sass-chokidar`?**
 
-`node-sass` has been reported as having the following issues:
+`node-sass` 据报告有以下问题:
 
-- `node-sass --watch` has been reported to have *performance issues* in certain conditions when used in a virtual machine or with docker.
+- `node-sass --watch` 在虚拟机或者docker使用时，在一定情况下会有*性能问题*
 
 - Infinite styles compiling [^1939](https://github.com/facebookincubator/create-react-app/issues/1939)
 
-- `node-sass` has been reported as having issues with detecting new files in a directory [^1891](https://github.com/sass/node-sass/issues/1891)
+- `node-sass` 检测文件夹中的新文件时会出现问题 [^1891](https://github.com/sass/node-sass/issues/1891)
 
- `node-sass-chokidar` is used here as it addresses these issues.
+ `node-sass-chokidar` 是用来解决这些问题的.
 
 ## Adding Images, Fonts, and Files
+添加图片，字体和文件
+使用Webpack，使用像图像和字体这样的静态资产与CSS类似
+你可以**在一个JavaScript模块中`import` 一个文件**. 这就是告诉Webpack将这个文件包含在包中. 与 CSS 导入不同, 导入文件会给你一个字符串值.该值是您可以在代码中引用的最终路径，例如图像的`src`属性或链接到PDF的`href`。
 
-With Webpack, using static assets like images and fonts works similarly to CSS.
+为了减少对服务器的请求数量，导入小于10,000字节的图像会返回一个[数据URI][150]而不是路径。这适用于以下文件扩展:bmp、gif、jpg、jpeg和png。 SVG文件被排除在 [^1153](https://github.com/facebookincubator/create-react-app/issues/1153).
 
-You can **`import` a file right in a JavaScript module**. This tells Webpack to include that file in the bundle. Unlike CSS imports, importing a file gives you a string value. This value is the final path you can reference in your code, e.g. as the `src` attribute of an image or the `href` of a link to a PDF.
-
-To reduce the number of requests to the server, importing images that are less than 10,000 bytes returns a [data URI][150] instead of a path. This applies to the following file extensions: bmp, gif, jpg, jpeg, and png. SVG files are excluded due to [^1153](https://github.com/facebookincubator/create-react-app/issues/1153).
-
-Here is an example:
+例如:
 
 ```js
 import React from 'react';
@@ -645,9 +644,9 @@ function Header() {
 export default Header;
 ```
 
-This ensures that when the project is built, Webpack will correctly move the images into the build folder, and provide us with correct paths.
+ 这确保了在构建项目时，Webpack将正确地将这些图像移动到构建文件夹中，并为我们提供正确的路径。
 
-This works in CSS too:
+这也适用于CSS:
 
 ```css
 .Logo {
@@ -655,82 +654,85 @@ This works in CSS too:
 }
 ```
 
-Webpack finds all relative module references in CSS (they start with `./`) and replaces them with the final paths from the compiled bundle. If you make a typo or accidentally delete an important file, you will see a compilation error, just like when you import a non-existent JavaScript module. The final filenames in the compiled bundle are generated by Webpack from content hashes. If the file content changes in the future, Webpack will give it a different name in production so you don’t need to worry about long-term caching of assets.
+Webpack在CSS中找到了所有相关的模块引用(它们从`./`开始)，并从编译后的包中替换它们。如果您输入错误或意外删除一个重要文件，您将看到一个编译错误，就像导入一个不存在的JavaScript模块时一样。编译后的包的最终文件名是由Webpack从内容哈希生成的。如果未来文件的内容发生变化，Webpack将在生产中给它一个不同的名字，这样你就不需要担心长期的资产缓存。
 
-Please be advised that this is also a custom feature of Webpack.
+请注意，这也是Webpack的一个自定义特性。
 
-**It is not required for React** but many people enjoy it (and React Native uses a similar mechanism for images).<br>
-An alternative way of handling static assets is described in the next section.
+**这不是React必须的**但是很多人都喜欢它(而且它的反应是用类似的图像机制).<br>
+下一节将描述处理静态资产的另一种方法.
 
 ## Using the `public` Folder
-
-> Note: this feature is available with `react-scripts@0.5.0` and higher.
+使用`public`文件夹
+> 注意: 这个特性要在 `react-scripts@0.5.0` 和更高的版本才可用
 
 ### Changing the HTML
-
-The `public` folder contains the HTML file so you can tweak it, for example, to [set the page title][151].
-The `<script>` tag with the compiled code will be added to it automatically during the build process.
+改变HTML
+`public` 文件夹包含HTML文件，你可以对它进行调整。例如 [设置页面title][151].
+带有编译后代码的`script`标签会在构建过程中自动添加到HTML中
 
 ### Adding Assets Outside of the Module System
+添加模块系统之外的资源。
 
-You can also add other assets to the `public` folder.
+你也可以添加其他资源到`public`文件夹
 
-Note that we normally encourage you to `import` assets in JavaScript files instead.
-For example, see the sections on [adding a stylesheet][152] and [adding images and fonts][153].
-This mechanism provides a number of benefits:
+Note that we normally encourage you to `import` assets in JavaScript files instead.注意，我们通常建议你在JavaScript文件中`import`资源
+例如, 参阅这一小节 [添加样式表][152] and [添加图像和字体文件][153].
+这种机制提供了许多好处:
 
-* Scripts and stylesheets get minified and bundled together to avoid extra network requests.
-* Missing files cause compilation errors instead of 404 errors for your users.
-* Result filenames include content hashes so you don’t need to worry about browsers caching their old versions.
+* 脚本和样式表被缩小并绑定在一起，以避免额外的网络请求.
+* 丢失的文件会导致编译错误，而不是用户的404错误.
+* 结果文件名包括内容散列，所以您不需要担心浏览器缓存它们的旧版本.
 
-However there is an **escape hatch** that you can use to add an asset outside of the module system.
+然而，有一个可以用来在模块系统之外添加资产的**escape hatch**
 
-If you put a file into the `public` folder, it will **not** be processed by Webpack. Instead it will be copied into the build folder untouched.   To reference assets in the `public` folder, you need to use a special variable called `PUBLIC_URL`.
+如果你把一个文件放到`public`文件夹里，它就**不会**被Webpack处理。相反，它将被原封不动地复制到构建文件夹中。要在公共文件夹中引用资产，需要使用一个名为`PUBLIC_URL`的特殊变量。
 
-Inside `index.html`, you can use it like this:
+在 `index.html`里, 你可以这样使用:
 
 ```html
 <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 ```
 
-Only files inside the `public` folder will be accessible by `%PUBLIC_URL%` prefix. If you need to use a file from `src` or `node_modules`, you’ll have to copy it there to explicitly specify your intention to make this file a part of the build.
+只有在 `public` 文件夹的文件才可以被 `%PUBLIC_URL%` 前缀访问. 如果你需要从`src` 或者 `node_modules`使用文件, 您必须在那里复制它，以显式地指定您的意图，使该文件成为构建的一部分。
 
-When you run `npm run build`, Create React App will substitute `%PUBLIC_URL%` with a correct absolute path so your project works even if you use client-side routing or host it at a non-root URL.
+当您运行`npm run build`时，Create React App将以正确的绝对路径替代`%PUBLIC_URL%`，这样您的项目即使使用客户端路由或在非根URL上托管它也可以工作。
 
-In JavaScript code, you can use `process.env.PUBLIC_URL` for similar purposes:
+在 JavaScript 代码中,你可以使用 `process.env.PUBLIC_URL` 类似的目录:
 
 ```js
 render() {
-  // Note: this is an escape hatch and should be used sparingly!
-  // Normally we recommend using `import` for getting asset URLs
-  // as described in “Adding Images and Fonts” above this section.
+  // 注意: 这是一个 escape hatch，应谨慎使用!
+  // 通常我们建议使用`import`来获取资产url
+  // 正如上面所描述的“添加图片和字体” section.
   return <img src={process.env.PUBLIC_URL + '/img/logo.png'} />;
 }
 ```
 
-Keep in mind the downsides of this approach:
+请记住这种方法的缺点:
 
-* None of the files in `public` folder get post-processed or minified.
-* Missing files will not be called at compilation time, and will cause 404 errors for your users.
-* Result filenames won’t include content hashes so you’ll need to add query arguments or rename them every time they change.
+* `public`文件夹中的所有文件都不会被处理或缩小。
+* 在编译时不会调用丢失的文件，并且会导致用户404错误。.
+* 结果文件名不会包含内容散列，所以您需要添加查询参数，或者在每次更改时重命名它们.
 
 ### When to Use the `public` Folder
+当你使用`public`文件夹
 
-Normally we recommend importing [stylesheets][154], [images, and fonts][155] from JavaScript.
-The `public` folder is useful as a workaround for a number of less common cases:
+通常我们建议 从JavaScript导入 [样式表][154], [图片和字体][155]
+`public`文件夹对于一些不太常见的情况是很有用的:
 
-* You need a file with a specific name in the build output, such as [`manifest.webmanifest`][156].
-* You have thousands of images and need to dynamically reference their paths.
-* You want to include a small script like [`pace.js`][157] outside of the bundled code.
-* Some library may be incompatible with Webpack and you have no other option but to include it as a `<script>` tag.
+* 您需要一个在构建输出中具有特定名称的文件，例如[`manifest.webmanifest`][156].
+* 有成千上万的图像需要动态地引用它们的路径.
+* 你想要在包代码外包含一个小脚本如 [`pace.js`][157] 
+* 一些库可能与Webpack不兼容，你没有其他选择，而是把它作为一个`script`标签.
 
-Note that if you add a `<script>` that declares global variables, you also need to read the next section on using them.
+注意 如果您添加了一个声明全局变量的`<script>`，那么您还需要阅读下一节使用它们的内容。
 
 ## Using Global Variables
+使用全局变量
 
-When you include a script in the HTML file that defines global variables and try to use one of these variables in the code, the linter will complain because it cannot see the definition of the variable.
+当您在HTML文件中包含一个定义了全局变量并试图在代码中使用其中一个变量的脚本时，linter将会报错，因为它看不到变量的定义。
 
-You can avoid this by reading the global variable explicitly from the `window` object, for example:
+您可以通过从`window`对象中显式地读取全局变量来避免这一点。:
 
 ```js
 const $ = window.$;

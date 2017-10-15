@@ -937,110 +937,113 @@ REACT_APP_SECRET_CODE=abcdef
 
 如果机器没有显式地设置这些变量，这些变量将充当默认值。更多细节请参阅[dotenv 文档][169] 
 
-> Note: If you are defining environment variables for development, your CI and/or hosting platform will most likely need
-these defined as well. Consult their documentation how to do this. For example, see the documentation for [Travis CI][170] or [Heroku][171].
+> 注意: 如果您正在为开发定义环境变量，那么您的CI 和/或 托管平台最有可能需要这些定义。参考他们的文档如何做到这一点。例如，请参阅[Travis CI][170] 或者 [Heroku][171]。
 
 ## Can I Use Decorators?
+我能使用修饰符吗？
 
-Many popular libraries use [decorators][172] in their documentation.<br>
-Create React App doesn’t support decorator syntax at the moment because:
+许多流行的库在他们的文档中使用[修饰符][172]。<br>
+Create React App 暂时不支持装饰语法 因为:
 
-* It is an experimental proposal and is subject to change.
-* The current specification version is not officially supported by Babel.
-* If the specification changes, we won’t be able to write a codemod because we don’t use them internally at Facebook.
+* 这是一个实验性的提议，并且会受到改变
+* 目前的规范版本没有得到Babel的官方支持。
+* 如果规范改变了，我们就不能写codemod因为我们在Facebook内部不使用它们.
 
-However in many cases you can rewrite decorator-based code without decorators just as fine.<br>
-Please refer to these two threads for reference:
+然而，在许多情况下，您可以在没有修饰符的情况下重写基于修饰符的代码。<br>
+请参阅这两个线程以供参考:
 
 * [^214](https://github.com/facebookincubator/create-react-app/issues/214)
 * [^411](https://github.com/facebookincubator/create-react-app/issues/411)
 
-Create React App will add decorator support when the specification advances to a stable stage.
+当规范达到稳定阶段时，Create React App将添加装饰支持。
 
 ## Integrating with an API Backend
+与后端API集成
 
-These tutorials will help you to integrate your app with an API backend running on another port,
-using `fetch()` to access it.
+这些教程将帮助您将应用程序与在另一个端口上运行的后端API进行集成，
+使用`fetch()`来访问它。
 
 ### Node
-Check out [this tutorial][173].
-You can find the companion GitHub repository [here][174].
+参阅 [本教程][173].
+您可以找到它的GitHub库 [here][174].
 
 ### Ruby on Rails
 
-Check out [this tutorial][175].
-You can find the companion GitHub repository [here][176].
+参阅 [本教程][175].
+您可以找到它的GitHub库 [here][176].
 
 ## Proxying API Requests in Development
 
-> Note: this feature is available with `react-scripts@0.2.3` and higher.
+开发模式下代理API请求
+> 注意: 这个特性需要 `react-scripts@0.2.3` 和更高版本.
 
-People often serve the front-end React app from the same host and port as their backend implementation.<br>
-For example, a production setup might look like this after the app is deployed:
+人们通常会从相同的主机和端口作为后端实现来服务前端React应用程序。<br>
+例如，在应用程序部署之后，生产设置可能是这样的:
 
 ```
-/             - static server returns index.html with React app
-/todos        - static server returns index.html with React app
-/api/todos    - server handles any /api/* requests using the backend implementation
+/             - 静态服务器使用React应用返回index.html
+/todos        - 静态服务器使用React应用返回index.html
+/api/todos    - 静态服务器使用后端实现处理任何 /api/* 请求
 ```
 
-Such setup is **not** required. However, if you **do** have a setup like this, it is convenient to write requests like `fetch('/api/todos')` without worrying about redirecting them to another host or port during development.
+这样的设置是**不**需要的。但是，如果您**确实**有这样的设置，那么编写像`fetch('/api/todos')`这样的请求是很方便的，无需担心在开发期间将它们重定向到另一个主机或端口。
 
-To tell the development server to proxy any unknown requests to your API server in development, add a `proxy` field to your `package.json`, for example:
+要告诉开发服务器在开发中将任何未知的请求代理到您的API服务器，请在您的包中添加一个`proxy`字段在你的`package.json`,例如: 
 
 ```js
   "proxy": "http://localhost:4000",
 ```
 
-This way, when you `fetch('/api/todos')` in development, the development server will recognize that it’s not a static asset, and will proxy your request to `http://localhost:4000/api/todos` as a fallback. The development server will **only** attempt to send requests without `text/html` in its `Accept` header to the proxy.
+这样，当你在开发中`fetch('/api/todos')`,开发服务器将识别,这不是一个静态的资产,并将代理你的请求`http://localhost:4000/api/todos`作为后备。开发服务器**只会**尝试在它的`Accept`头中向代理发送没有`text/html`的请求。
 
-Conveniently, this avoids [CORS issues][177] and error messages like this in development:
+方便的是，这避免了在开发过程中出现[CORS 问题][177]和错误消息。:
 
 ```
-Fetch API cannot load http://localhost:4000/api/todos. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:3000' is therefore not allowed access. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+Fetch API 不能加载 http://localhost:4000/api/todos.在请求的资源上没有出现 'Access-Control-Allow-Origin' 头. 因此源 'http://localhost:3000' 是不被允许访问的。 如果一个不透明的响应满足您的需要，那么将请求的模式设置为“no-cors”，以获取禁用CORS的资源。
 ```
 
-Keep in mind that `proxy` only has effect in development (with `npm start`), and it is up to you to ensure that URLs like `/api/todos` point to the right thing in production. You don’t have to use the `/api` prefix. Any unrecognized request without a `text/html` accept header will be redirected to the specified `proxy`.
+请记住，`proxy`只对开发有影响(在`npm start`时)，并且由您来确保像`/api/todos`这样的URL在生产中指向正确的东西。您不需要使用`/api`前缀。任何未被识别的请求，如果没有一个`text/html` accept标头，都将被重定向到指定的`proxy`。
 
-The `proxy` option supports HTTP, HTTPS and WebSocket connections.<br>
-If the `proxy` option is **not** flexible enough for you, alternatively you can:
+`proxy`选项支持HTTP、HTTPS和WebSocket连接。
+如果`proxy`选项对您来说**不够**灵活，或者您可以:
 
-* [Configure the proxy yourself][178]
-* Enable CORS on your server ([here’s how to do it for Express][179]).
-* Use [environment variables][180] to inject the right server host and port into your app.
+* [配置你自己的代理][178]
+* 在您的服务器上启用CORS ([这里是关于 Express 怎么运行的][179]).
+* 使用 [环境变量][180] 将正确的服务器主机和端口注入到您的应用中
 
 ### "Invalid Host Header" Errors After Configuring Proxy
+在出现“Invalid Host Header”错误之后配置代理
+当你启用 `proxy` 选项, 您可以选择更严格的主机检查. 这是必要的，因为将后端开放给远程主机使您的计算机容易受到DNS重新绑定攻击。这个问题在[这篇文章][181] 和 [这个问题][182]中得到解释.
 
-When you enable the `proxy` option, you opt into a more strict set of host checks. This is necessary because leaving the backend open to remote hosts makes your computer vulnerable to DNS rebinding attacks. The issue is explained in [this article][181] and [this issue][182].
-
-This shouldn’t affect you when developing on `localhost`, but if you develop remotely like [described here][183], you will see this error in the browser after enabling the `proxy` option:
+在`localhost`上开发时，这不会影响到您，但是如果您像[这里描述][183]的那样远程开发，在启用`proxy`选项后，您将在浏览器中看到这个错误:
 
 > Invalid Host header
 
-To work around it, you can specify your public development host in a file called `.env.development` in the root of your project:
+无效的主机头部<br>
+为了解决这个问题，您可以在项目根目录的一个名为`.env.development`的文件中指定您的公共开发主机:
 
 ```
 HOST=mypublicdevhost.com
 ```
 
-If you restart the development server now and load the app from the specified host, it should work.
+如果您现在重新启动开发服务器并从指定的主机加载应用程序，那么它应该可以工作。
 
-If you are still having issues or if you’re using a more exotic environment like a cloud editor, you can bypass the host check completely by adding a line to `.env.development.local`. **Note that this is dangerous and exposes your machine to remote code execution from malicious websites:**
+如果您仍然有问题，或者如果您使用的是像云编辑器这样的更奇特的环境，那么您可以通过添加一行到`.env.development.local`来完全绕过主机检查。**请注意，这是危险的，并将您的机器暴露在恶意网站的远程代码执行中**:
 
 ```
-# NOTE: THIS IS DANGEROUS!
-# It exposes your machine to attacks from the websites you visit.
+# 注意: 这是危险的!
+# 它将你的机器暴露在你访问的网站上.
 DANGEROUSLY_DISABLE_HOST_CHECK=true
 ```
 
-We don’t recommend this approach.
+我们不推荐这种方法.
 
 ### Configuring the Proxy Manually
+手动配置代理
+> 注意: 这个特性需要 `react-scripts@1.0.0` 和更高的版本.
 
-> Note: this feature is available with `react-scripts@1.0.0` and higher.
-
-If the `proxy` option is **not** flexible enough for you, you can specify an object in the following form (in `package.json`).<br>
-You may also specify any configuration value [`http-proxy-middleware`][184] or [`http-proxy`][185] supports.
+如果`proxy`选项对您不够灵活，您可以以以下形式指定一个对象（在`package.json`中）.<br>
+您还可以指定任何配置值[`http-proxy-middleware`][184] 或者 [`http-proxy`][185] 支持.
 ```js
 {
   // ...
@@ -1055,10 +1058,10 @@ You may also specify any configuration value [`http-proxy-middleware`][184] or [
 }
 ```
 
-All requests matching this path will be proxies, no exceptions. This includes requests for `text/html`, which the standard `proxy` option does not proxy.
+All requests matching this path will be proxies, no exceptions. This includes requests for `text/html`, which the standard `proxy` option does not proxy.所有匹配这条路径的请求都将是代理，无一例外。这包括对`text/html`的请求，标准的`proxy`选项不代理。
 
-If you need to specify multiple proxies, you may do so by specifying additional entries.
-Matches are regular expressions, so that you can use a regexp to match multiple paths.
+如果需要指定多个代理，可以通过指定附加的条目来实现。
+匹配是正则表达式，因此您可以使用regexp来匹配多个路径。
 ```js
 {
   // ...
@@ -1094,26 +1097,27 @@ Matches are regular expressions, so that you can use a regexp to match multiple 
 ```
 
 ### Configuring a WebSocket Proxy
+配置一个WebSocket 代理
 
-When setting up a WebSocket proxy, there are a some extra considerations to be aware of.
+在设置WebSocket代理时，需要注意一些额外的注意事项.
 
-If you’re using a WebSocket engine like [Socket.io][186], you must have a Socket.io server running that you can use as the proxy target. Socket.io will not work with a standard WebSocket server. Specifically, don't expect Socket.io to work with [the websocket.org echo test][187].
+如果你使用的是WebSocket引擎，比如[Socket.io][186]，你必须有一个可以用作代理目标的Socket.io服务器运行。Socket.io不能使用标准的WebSocket服务器。具体地说,别指望Socket.io与[the websocket.org echo test][187]一起工作
 
-There’s some good documentation available for [setting up a Socket.io server][188].
+有一些很好的文档可以用来[设置 Socket.io 服务器][188].
 
-Standard WebSockets **will** work with a standard WebSocket server as well as the websocket.org echo test. You can use libraries like [ws][189] for the server, with [native WebSockets in the browser][190].
+标准WebSocket**将**与一个标准的WebSocket服务器以及websocket.org的echo测试一起工作。您可以使用像[ws][189]这样的库来使用服务器，在[浏览器中使用原生的WebSocket][190]。
 
-Either way, you can proxy WebSocket requests manually in `package.json`:
+无论哪种方式，您都可以在`package.json`中手动代理WebSocket请求:
 
 ```js
 {
   // ...
   "proxy": {
     "/socket": {
-      // Your compatible WebSocket server
+      // 兼容的WebSocket服务器
       "target": "ws://<socket_url>",
-      // Tell http-proxy-middleware that this is a WebSocket proxy.
-      // Also allows you to proxy WebSocket requests without an additional HTTP request
+      // 告诉 http-proxy-middleware 这是一个 WebSocket 代理.
+      //也允许您在没有附加HTTP请求的情况下代理WebSocket请求
       // https://github.com/chimurai/http-proxy-middleware#external-websocket-upgrade
       "ws": true
       // ...
@@ -1125,11 +1129,12 @@ Either way, you can proxy WebSocket requests manually in `package.json`:
 
 ## Using HTTPS in Development
 
-> Note: this feature is available with `react-scripts@0.4.0` and higher.
+在开发中使用HTTPS
+> 注意: 这个特性需要 `react-scripts@0.4.0` 和更高的版本.
 
-You may require the dev server to serve pages over HTTPS. One particular case where this could be useful is when using [the "proxy" feature][191] to proxy requests to an API server when that API server is itself serving HTTPS.
+You may require the dev server to serve pages over HTTPS. One particular case where this could be useful is when using [the "proxy" feature][191] to proxy requests to an API server when that API server is itself serving HTTPS.您可能需要开发服务器通过HTTPS来服务页面。其中一个特别的例子是，当这个API服务器本身在服务HTTPS时，使用[the "proxy" 特性][191]来代理请求到一个API服务器。
 
-To do this, set the `HTTPS` environment variable to `true`, then start the dev server as usual with `npm start`:
+To do this, set the `HTTPS` environment variable to `true`, then start the dev server as usual with `npm start`要做到这一点，请将`HTTPS`环境变量设置为`true`，然后在`npm start`时启动dev服务器::
 
 #### Windows (cmd.exe)
 
@@ -1137,7 +1142,7 @@ To do this, set the `HTTPS` environment variable to `true`, then start the dev s
 set HTTPS=true&&npm start
 ```
 
-(Note: the lack of whitespace is intentional.)
+(注意: 缺少空格是故意的.)
 
 #### Linux, macOS (Bash)
 
@@ -1145,11 +1150,13 @@ set HTTPS=true&&npm start
 HTTPS=true npm start
 ```
 
-Note that the server will use a self-signed certificate, so your web browser will almost definitely display a warning upon accessing the page.
+请注意，服务器将使用自签名证书，因此在访问页面时，您的web浏览器几乎肯定会显示警告.
 
 ## Generating Dynamic `<meta>` Tags on the Server
 
-Since Create React App doesn’t support server rendering, you might be wondering how to make `<meta>` tags dynamic and reflect the current URL. To solve this, we recommend to add placeholders into the HTML, like this:
+在服务器上生成动态`<meta>`标签
+
+由于Create React App不支持服务器渲染，所以您可能想知道如何使`<meta>`标签动态并反映当前的URL。为了解决这个问题，我们建议在HTML中添加占位符，如下:
 
 ```html
 <!doctype html>
@@ -1159,23 +1166,25 @@ Since Create React App doesn’t support server rendering, you might be wonderin
     <meta property="og:description" content="__OG_DESCRIPTION__">
 ```
 
-Then, on the server, regardless of the backend you use, you can read `index.html` into memory and replace `__OG_TITLE__`, `__OG_DESCRIPTION__`, and any other placeholders with values depending on the current URL. Just make sure to sanitize and escape the interpolated values so that they are safe to embed into HTML!
+然后，在服务器上，不管您使用的后端是什么，您都可以读取`index.html`到内存中，并替换`__OG_TITLE__`, `__OG_DESCRIPTION__`和任何其他占位符，这些占位符都依赖于当前的URL。只需确保对插入的值进行消毒和转义，这样它们就可以安全地嵌入到HTML中了
 
-If you use a Node server, you can even share the route matching logic between the client and the server. However duplicating it also works fine in simple cases.
+如果您使用一个Node服务器，您甚至可以共享客户端和服务器之间的路由匹配逻辑。然而，在简单的情况下，复制它也可以很好地工作。
 
 ## Pre-Rendering into Static HTML Files
+预渲染到静态HTML文件
 
-If you’re hosting your `build` with a static hosting provider you can use [react-snapshot][192] to generate HTML pages for each route, or relative link, in your application. These pages will then seamlessly become active, or “hydrated”, when the JavaScript bundle has loaded.
+如果您使用静态托管提供程序来托管您的`build`，那么您可以使用[react-snapshot][192]来为您的应用程序中的每个路由或相关链接生成HTML页面。当JavaScript包加载时，这些页面将无缝地变得活跃，或者“水化”。
 
-There are also opportunities to use this outside of static hosting, to take the pressure off the server when generating and caching routes.
+在静态托管之外也有机会使用此功能，在生成和缓存路由时，可以减轻服务器的压力。
 
-The primary benefit of pre-rendering is that you get the core content of each page _with_ the HTML payload—regardless of whether or not your JavaScript bundle successfully downloads. It also increases the likelihood that each route of your application will be picked up by search engines.
+预渲染的主要好处是，不管你的JavaScript包是否成功下载，你都可以使用HTML payload—regardless获得每个页面的核心内容。它还增加了应用程序的每条路径都被搜索引擎接收的可能性。
 
-You can read more about [zero-configuration pre-rendering (also called snapshotting) here][193].
+你可以读更多关于 [零配置 预渲染 (也称为snapshotting快照)][193].
 
 ## Injecting Data from the Server into the Page
+从服务器向页面中注入数据
 
-Similarly to the previous section, you can leave some placeholders in the HTML that inject global variables, for example:
+与上一节类似，您可以在HTML中留下一些占位符，例如，注入全局变量。:
 
 ```js
 <!doctype html>
@@ -1186,32 +1195,33 @@ Similarly to the previous section, you can leave some placeholders in the HTML t
     </script>
 ```
 
-Then, on the server, you can replace `__SERVER_DATA__` with a JSON of real data right before sending the response. The client code can then read `window.SERVER_DATA` to use it. **Make sure to [sanitize the JSON before sending it to the client][194] as it makes your app vulnerable to XSS attacks.**
-
+然后，在服务器上，您可以在发送响应之前使用真实数据的JSON替换`__SERVER_DATA__`。然后，客户端代码可以读取`window.SERVER_DATA`来使用它。**请确保[在将JSON发送给客户端之前对它进行消毒][194]，因为它使您的应用程序容易受到XSS攻击**。
 ## Running Tests
+运行测试
 
-> Note: this feature is available with `react-scripts@0.3.0` and higher.<br>
-> [Read the migration guide to learn how to enable it in older projects!][195]
+> 注意: 这个特性需要 `react-scripts@0.3.0` 和更高版本.<br>
+> [阅读迁移指南，了解如何在旧项目中启用它!][195]
 
-Create React App uses [Jest][196] as its test runner. To prepare for this integration, we did a [major revamp][197] of Jest so if you heard bad things about it years ago, give it another try.
+Create React App使用[Jest][196]作为它的测试运行程序。为了准备这次整合，我们做了一个[重大的修改][197]，如果你在几年前听到了不好的事情，再试一次。
 
-Jest is a Node-based runner. This means that the tests always run in a Node environment and not in a real browser. This lets us enable fast iteration speed and prevent flakiness.
+Jest是一个基于Node的运行程序。这意味着测试总是在Node环境中运行，而不是在真正的浏览器中运行。这让我们能够实现快速的迭代速度和防止碎片化。
 
-While Jest provides browser globals such as `window` thanks to [jsdom][198], they are only approximations of the real browser behavior. Jest is intended to be used for unit tests of your logic and your components rather than the DOM quirks.
+虽然Jest提供了浏览器全球化，例如基于[jsdom][198]的`window`，但它们只是近似真正的浏览器行为。Jest的目的是用于对逻辑和组件进行单元测试，而不是DOM特性
 
-We recommend that you use a separate tool for browser end-to-end tests if you need them. They are beyond the scope of Create React App.
+我们建议您在需要的时候使用一个单独的工具来进行端到端测试。它们超出了Create React App的范围。
 
 ### Filename Conventions
+文件名的约定
 
-Jest will look for test files with any of the following popular naming conventions:
+将查找带有以下流行命名约定的测试文件::
 
-* Files with `.js` suffix in `__tests__` folders.
-* Files with `.test.js` suffix.
-* Files with `.spec.js` suffix.
+* 在 `__tests__` 文件夹中带`.js` 后缀的文件.
+* 带`.test.js` 后缀的文件.
+* 带`.spec.js` 后缀的文件.
 
-The `.test.js` / `.spec.js` files (or the `__tests__` folders) can be located at any depth under the `src` top level folder.
+`.test.js` / `.spec.js` 文件 (或者 `__tests__` 文件夹)可以位于`src`文件夹下的任何深度的位置。
 
-We recommend to put the test files (or `__tests__` folders) next to the code they are testing so that relative imports appear shorter. For example, if `App.test.js` and `App.js` are in the same folder, the test just needs to `import App from './App'` instead of a long relative path. Colocation also helps find tests more quickly in larger projects.
+我们建议将测试文件(或`__tests__`文件夹)放在它们正在测试的代码旁边，这样相对的导入就会比较短。例如,如果`App.test.js`和`App.js`在同一个文件夹中，测试只需要从`import App from './App'`而不是一个长的相对路径。在较大的项目中，还可以帮助更快地找到测试。
 
 ### Command Line Interface
 

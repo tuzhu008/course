@@ -1224,26 +1224,30 @@ Jest是一个基于Node的运行程序。这意味着测试总是在Node环境�
 我们建议将测试文件(或`__tests__`文件夹)放在它们正在测试的代码旁边，这样相对的导入就会比较短。例如,如果`App.test.js`和`App.js`在同一个文件夹中，测试只需要从`import App from './App'`而不是一个长的相对路径。在较大的项目中，还可以帮助更快地找到测试。
 
 ### Command Line Interface
+命令行接口
 
-When you run `npm test`, Jest will launch in the watch mode. Every time you save a file, it will re-run the tests, just like `npm start` recompiles the code.
+当你运行`npm test`, Jest将在观察模式中启动。每次您保存一个文件时，它都会重新运行测试，就像`npm start`重新编译代码一样。
 
-The watcher includes an interactive command-line interface with the ability to run all tests, or focus on a search pattern. It is designed this way so that you can keep it open and enjoy fast re-runs. You can learn the commands from the “Watch Usage” note that the watcher prints after every run:
+The watcher includes an interactive command-line interface with the ability to run all tests, or focus on a search pattern. It is designed this way so that you can keep it open and enjoy fast re-runs. You can learn the commands from the “Watch Usage” note that the watcher prints after every run观察者包括一个交互式命令行接口，它可以运行所有测试，或者关注一个搜索模式。它是这样设计的，这样你就可以保持它的开放性，并享受快速的重新运行。您可以从“观察使用”中注意到每一次运行后观察者的输出:
 
-![Jest watch mode][image-1]
+![Jest 观察模式][image-1]
 
 ### Version Control Integration
+版本控制
 
-By default, when you run `npm test`, Jest will only run the tests related to files changed since the last commit. This is an optimization designed to make your tests run fast regardless of how many tests you have. However it assumes that you don’t often commit the code that doesn’t pass the tests.
+默认情况下，当您运行`npm test`时，Jest将只运行与上次提交后更改的文件相关的测试。这是一种优化设计，可以让您的测试运行得很快，而不管您有多少测试。但是，它假设您不经常提交不通过测试的代码。
 
-Jest will always explicitly mention that it only ran tests related to the files changed since the last commit. You can also press `a` in the watch mode to force Jest to run all tests.
+Jest总是会明确地提到，它只运行与上次提交后更改的文件相关的测试。您还可以在观察模式中按下`a`，强制Jest运行所有测试。
 
-Jest will always run all tests on a [continuous integration][199] server or if the project is not inside a Git or Mercurial repository.
+Jest将始终运行在[continuous integration][199]服务器上的所有测试，或者如果项目不在Git或Mercurial存储库中。
 
 ### Writing Tests
 
-To create tests, add `it()` (or `test()`) blocks with the name of the test and its code. You may optionally wrap them in `describe()` blocks for logical grouping but this is neither required nor recommended.
+编写测试
 
-Jest provides a built-in `expect()` global function for making assertions. A basic test could look like this:
+创建测试, 使用测试和它的代码的名字添加 `it()` (或者 `test()`) 。 您可以选择将它们包装为`describe()`逻辑分组的块，但这既不是必需的，也不是建议的。
+
+Jest提供了内置的用于断言的`expect()`全局函数。一个基本的测试可以是这样的:
 
 ```js
 import sum from './sum';
@@ -1254,14 +1258,15 @@ it('sums numbers', () => {
 });
 ```
 
-All `expect()` matchers supported by Jest are [extensively documented here][200].<br>
-You can also use [`jest.fn()` and `expect(fn).toBeCalled()`][201] to create “spies” or mock functions.
+所有的 `expect()` 匹配器都被Jest支持[广泛地记录在这里][200].<br>
+你也可以使用 [`jest.fn()` and `expect(fn).toBeCalled()`][201] 来创建 “spies” 或 模拟 functions.
 
 ### Testing Components
+测试组件
 
-There is a broad spectrum of component testing techniques. They range from a “smoke test” verifying that a component renders without throwing, to shallow rendering and testing some of the output, to full rendering and testing component lifecycle and state changes.
+有一个广泛的组件测试技术。它们的范围从一种“冒烟测试”，验证组件在不抛出的情况下渲染，到对某些输出进行浅渲染和测试，到完整的渲染和测试组件的生命周期和状态变化。
 
-Different projects choose different testing tradeoffs based on how often components change, and how much logic they contain. If you haven’t decided on a testing strategy yet, we recommend that you start with creating simple smoke tests for your components:
+不同的项目根据组件变更的频繁程度和它们包含多少逻辑来选择不同的测试权衡。如果您还没有决定测试策略，我们建议您首先为您的组件创建简单的烟雾测试:
 
 ```js
 import React from 'react';
@@ -1274,23 +1279,23 @@ it('renders without crashing', () => {
 });
 ```
 
-This test mounts a component and makes sure that it didn’t throw during rendering. Tests like this provide a lot value with very little effort so they are great as a starting point, and this is the test you will find in `src/App.test.js`.
+这个测试挂载一个组件并确保它没有仍渲染。这样的测试可以很简单的提供大量价值，所以它们可以作为一个很好的起点,你可以在`src/App.test.js`中找到这些测试。
 
-When you encounter bugs caused by changing components, you will gain a deeper insight into which parts of them are worth testing in your application. This might be a good time to introduce more specific tests asserting specific expected output or behavior.
+当您遇到由更改组件引起的bug时，您将获得更深入的了解，其中哪些部分值得在您的应用程序中进行测试。这可能是引入更具体的测试来断言特定的期望输出或行为的好时机。
 
-If you’d like to test components in isolation from the child components they render, we recommend using [`shallow()` rendering API][202] from [Enzyme][203]. To install it, run:
+If you’d like to test components in isolation from the child components they render, we recommend using [`shallow()` rendering API][202] from [Enzyme][203]. To install it, run:如果您想要对组件进行单独的测试，那么就可以从它们渲染的子组件中进行测试。那么我们建议从 [Enzyme][203]里使用[`shallow()` rendering API][202] 。安装它,运行:
 
 ```sh
 npm install --save enzyme react-test-renderer
 ```
 
-Alternatively you may use `yarn`:
+你也可以使用 `yarn`:
 
 ```sh
 yarn add enzyme react-test-renderer
 ```
 
-You can write a smoke test with it too:
+你也可以用它来写一份烟雾测试:
 
 ```js
 import React from 'react';
@@ -1302,11 +1307,11 @@ it('renders without crashing', () => {
 });
 ```
 
-Unlike the previous smoke test using `ReactDOM.render()`, this test only renders `<App>` and doesn’t go deeper. For example, even if `<App>` itself renders a `<Button>` that throws, this test will pass. Shallow rendering is great for isolated unit tests, but you may still want to create some full rendering tests to ensure the components integrate correctly. Enzyme supports [full rendering with `mount()`][204], and you can also use it for testing state changes and component lifecycle.
+不像之前的使用`ReactDOM.render()`的烟雾测试，这个测试仅渲染了`<App>`并没有深入。例如，即使`<App>`本身渲染了一个抛出的`<Button>`，这个测试也会通过。浅渲染对于独立的单元测试来说是很好的，但是您可能仍然需要创建一些完整的渲染测试，以确保组件能够正确地集成。Enzyme支持[使用 `mount()`来完整渲染][204]，你也可以用它来测试状态变化和组件生命周期。
 
-You can read the [Enzyme documentation][205] for more testing techniques. Enzyme documentation uses Chai and Sinon for assertions but you don’t have to use them because Jest provides built-in `expect()` and `jest.fn()` for spies.
+为了更多的测试技术，您可以阅读[Enzyme文档][205]。Enzyme文档使用 Chai 和 Sinon 来断言，但你不需要使用它们，因为Jest提供了内置的`expect()`和`jest.fn()` for spies。
 
-Here is an example from Enzyme documentation that asserts specific output, rewritten to use Jest matchers:
+这里有一个来自Enzyme文档的例子，它断言特定的输出，为使用Jest匹配器重写:
 
 ```js
 import React from 'react';
@@ -1321,53 +1326,55 @@ it('renders welcome message', () => {
 });
 ```
 
-All Jest matchers are [extensively documented here][206].<br>
-Nevertheless you can use a third-party assertion library like [Chai][207] if you want to, as described below.
+所有的Jest匹配器被 [广泛记录在这里][206].<br>
+不过如果你想，你也可以使用像[Chai][207]三方断言插件。
 
-Additionally, you might find [jest-enzyme][208] helpful to simplify your tests with readable matchers. The above `contains` code can be written simpler with jest-enzyme.
+另外，您可能会发现[jest-enzyme][208]使用可读的匹配器来帮助简化您的测试。上面`contains`代码可以用最简单的酶来编写。
 
 ```js
 expect(wrapper).toContainReact(welcome)
 ```
 
-To enable this, install `jest-enzyme`:
+启用这个, 需要安装 `jest-enzyme`:
 
 ```sh
 npm install --save jest-enzyme
 ```
 
-Alternatively you may use `yarn`:
+你也可以使用 `yarn`:
 
 ```sh
 yarn add jest-enzyme
 ```
 
-Import it in [`src/setupTests.js`][209] to make its matchers available in every test:
+在 [`src/setupTests.js`][209]中导入它，使它在每个测试中都可用:
 
 ```js
 import 'jest-enzyme';
 ```
 
 ### Using Third Party Assertion Libraries
+使用三方断言库
 
-We recommend that you use `expect()` for assertions and `jest.fn()` for spies. If you are having issues with them please [file those against Jest][210], and we’ll fix them. We intend to keep making them better for React, supporting, for example, [pretty-printing React elements as JSX][211].
+We recommend that you use `expect()` for assertions and `jest.fn()` for spies. If you are having issues with them please [file those against Jest][210], and we’ll fix them. We intend to keep making them better for React, supporting, for example, [pretty-printing React elements as JSX][211].我们建议您使用`expect()`来断言和`jest.fn()`来spies。如果你有关于它们的问题，请[把这些问题提交给我们][210]，我们会解决的。我们打算继续让它们更好服务于React，例如，[如同JSX，美观地输出React元素][211]
 
-However, if you are used to other libraries, such as [Chai][212] and [Sinon][213], or if you have existing code using them that you’d like to port over, you can import them normally like this:
+然而, 如果您使用其他的库, 例如 [Chai][212] and [Sinon][213], 或者，如果你有现成的代码，你想要移植过来，你可以像这样导入它们::
 
 ```js
 import sinon from 'sinon';
 import { expect } from 'chai';
 ```
 
-and then use them in your tests like you normally do.
+然后像往常一样在你的测试中使用它们。
 
 ### Initializing Test Environment
 
-> Note: this feature is available with `react-scripts@0.4.0` and higher.
+初始化测试环境
+> 注意: 这个特性需要 `react-scripts@0.4.0` 和更高版本.
 
-If your app uses a browser API that you need to mock in your tests or if you just need a global setup before running your tests, add a `src/setupTests.js` to your project. It will be automatically executed before running your tests.
+如果您的应用程序使用了您需要在测试中模拟的浏览器API，或者在运行您的测试之前需要一个全局设置，那么添加一个`src/setupTests.js`到您的项目。在运行您的测试之前，它将被自动执行
 
-For example:
+例如:
 
 #### `src/setupTests.js`
 ```js
@@ -1381,31 +1388,36 @@ global.localStorage = localStorageMock
 
 ### Focusing and Excluding Tests
 
-You can replace `it()` with `xit()` to temporarily exclude a test from being executed.<br>
-Similarly, `fit()` lets you focus on a specific test without running any other tests.
+聚焦和排除测试
+
+你可以将`it()`替换为`xit()`来从被执行的测试中暂时排除一个测试<br>
+同样,`fit()`让您在不运行任何其他测试的情况下专注于一个特定的测试
 
 ### Coverage Reporting
+覆盖率报告
 
-Jest has an integrated coverage reporter that works well with ES6 and requires no configuration.<br>
-Run `npm test -- --coverage` (note extra `--` in the middle) to include a coverage report like this:
+Jest有一个集成的覆盖报告，它与ES6很好地工作，并且不需要配置<br>
+运行 `npm test -- --coverage` (注意 在中间有一个额外的 `--` ) 来包含一个像这样的报告:
+
+![覆盖率报告][image-2]
 
-![coverage report][image-2]
-
-Note that tests run much slower with coverage so it is recommended to run it separately from your normal workflow.
+注意，测试运行的速度要慢得多，因此建议将其与正常工作流程分开运行。.
 
 ### Continuous Integration
 
-By default `npm test` runs the watcher with interactive CLI. However, you can force it to run tests once and finish the process by setting an environment variable called `CI`.
+持续集成
 
-When creating a build of your application with `npm run build` linter warnings are not checked by default. Like `npm test`, you can force the build to perform a linter warning check by setting the environment variable `CI`. If any warnings are encountered then the build fails.
+在默认情况下，`npm test`用交互式CLI运行监视者。但是，您可以强制它运行一次测试，并通过设置一个名为`CI`的环境变量来完成该过程。
 
-Popular CI servers already set the environment variable `CI` by default but you can do this yourself too:
+在使用`npm run build`创建程序的构建时，默认情况下不会检查您的应用程序。与`npm test`一样，您可以通过设置环境变量`CI`来强制构建执行一个linter警告检查。如果遇到任何警告，则构建失败。
+
+流行的CI服务器已经默认设置了环境变量`CI`但是您也可以自己这样做:
 
 ### On CI servers
 #### Travis CI
 
-1. Following the [Travis Getting started][214] guide for syncing your GitHub repository with Travis.  You may need to initialize some settings manually in your [profile][215] page.
-1. Add a `.travis.yml` file to your git repository.
+1. 在 [Travis 开始][214] 后，使用Travis同步你的Github仓库  您可能需要在您的[profile][215] 页面中手动初始化一些设置 .
+2. 添加 `.travis.yml` 文件到git仓库.
 ```
 language: node_js
 node_js:
@@ -1417,12 +1429,12 @@ script:
   - npm run build
   - npm test
 ```
-1. Trigger your first build with a git push.
-1. [Customize your Travis CI Build][216] if needed.
+1. 使用git push 触发第一个构建.
+2. 如果需要，你可以[自定义Travis CI Build][216] .
 
 #### CircleCI
 
-Follow [this article][217] to set up CircleCI with a Create React App project.
+跟随 [this article][217] 来设置一个 Create React App 项目的 CircleCI
 
 ### On your own environment
 ##### Windows (cmd.exe)
@@ -1435,7 +1447,7 @@ set CI=true&&npm test
 set CI=true&&npm run build
 ```
 
-(Note: the lack of whitespace is intentional.)
+(注意: 缺少空格是故意的.)
 
 ##### Linux, macOS (Bash)
 
@@ -1447,15 +1459,15 @@ CI=true npm test
 CI=true npm run build
 ```
 
-The test command will force Jest to run tests once instead of launching the watcher.
+测试命令将迫使Jest运行一次测试，而不是启动监视程序
 
->  If you find yourself doing this often in development, please [file an issue][218] to tell us about your use case because we want to make watcher the best experience and are open to changing how it works to accommodate more workflows.
+>  如果您发现自己经常在开发过程中这样做，请[提交问题][218]，告诉我们您的用例，因为我们想让观察者有好的经验，并且愿意改变它的工作方式以适应更多的工作流程。
 
-The build command will check for linter warnings and fail if any are found.
+构建命令将检查linter警告，如果找到了，就会失败。
 
 ### Disabling jsdom
 
-By default, the `package.json` of the generated project looks like this:
+默认情况下, 项目生成的 `package.json` 就像这样:
 
 ```js
   "scripts": {
@@ -1464,7 +1476,7 @@ By default, the `package.json` of the generated project looks like this:
     "test": "react-scripts test --env=jsdom"
 ```
 
-If you know that none of your tests depend on [jsdom][219], you can safely remove `--env=jsdom`, and your tests will run faster:
+如果您知道没有一个测试依赖于[jsdom][219]，那么您可以安全地删除`--env=jsdom`，您的测试将运行得更快:
 
 ```diff
   "scripts": {
@@ -1474,89 +1486,95 @@ If you know that none of your tests depend on [jsdom][219], you can safely remov
 +   "test": "react-scripts test"
 ```
 
-To help you make up your mind, here is a list of APIs that **need jsdom**:
+为了帮助你下定决定，这里有一个api列表 **需要 jsdom**:
 
-* Any browser globals like `window` and `document`
+* 任何像 `window` 和 `document`的浏览器全局变量
 * [`ReactDOM.render()`][220]
 * [`TestUtils.renderIntoDocument()`][221] ([a shortcut][222] for the above)
 * [`mount()`][223] in [Enzyme][224]
 
-In contrast, **jsdom is not needed** for the following APIs:
+与此形成鲜明对比的是, 以下API**不需要jsdom** :
 
-* [`TestUtils.createRenderer()`][225] (shallow rendering)
+* [`TestUtils.createRenderer()`][225] (前渲染)
 * [`shallow()`][226] in [Enzyme][227]
 
-Finally, jsdom is also not needed for [snapshot testing][228].
+最后，对于[快照测试][228]，也不需要jsdom.
 
 ### Snapshot Testing
+快照测试
 
-Snapshot testing is a feature of Jest that automatically generates text snapshots of your components and saves them on the disk so if the UI output changes, you get notified without manually writing any assertions on the component output. [Read more about snapshot testing.][229]
+快照测试是Jest的一个特性，它自动生成组件的文本快照，并将其保存在磁盘上，因此如果UI输出发生更改，您将得到通知，而无需手工编写组件输出的任何断言。[请阅读有关快照测试的更多信息][229]
 
 ### Editor Integration
+编辑器集成
 
-If you use [Visual Studio Code][230], there is a [Jest extension][231] which works with Create React App out of the box. This provides a lot of IDE-like features while using a text editor: showing the status of a test run with potential fail messages inline, starting and stopping the watcher automatically, and offering one-click snapshot updates.
+如果你使用 [Visual Studio Code][230], 这里是一个[Jest 扩展][231] 它能与 Create React App 一起工作. 它与创建反应应用程序一起工作。在使用文本编辑器时，这提供了许多类似于理想的功能:显示带有潜在失败消息的测试运行状态，并自动启动和停止监视程序，并提供一个单击快照更新。
 
-![VS Code Jest Preview][image-3]
+![Jest VS代码预览][image-3]
 
 ## Developing Components in Isolation
 
-Usually, in an app, you have a lot of UI components, and each of them has many different states.
-For an example, a simple button component could have following states:
+隔离开发组件
 
-* In a regular state, with a text label.
-* In the disabled mode.
-* In a loading state.
+通常，在一个应用中，你有很多UI组件，每个组件都有很多不同的状态。
+例如，一个简单的按钮组件可以有以下几个状态:
 
-Usually, it’s hard to see these states without running a sample app or some examples.
+* 在一个常规状态下，有一个文本标签.
+* 禁用状态.
+* 加载状态.
 
-Create React App doesn’t include any tools for this by default, but you can easily add [Storybook for React][232] ([source][233]) or [React Styleguidist][234] ([source][235]) to your project. **These are third-party tools that let you develop components and see all their states in isolation from your app**.
+通常，在不运行示例应用程序或一些示例的情况下，很难看到这些状态。
+
+默认情况下，Create React App 不包含任何工具, 但你可以很容易地添加 [Storybook for React][232] ([source][233]) 或者 [React Styleguidist][234] ([source][235]) 到你的项目. **这些是第三方工具，可以让你开发组件，并将它们的状态与你的应用隔离开来**.
 
 ![Storybook for React Demo][image-4]
 
-You can also deploy your Storybook or style guide as a static app. This way, everyone in your team can view and review different states of UI components without starting a backend server or creating an account in your app.
+你也可以将你的故事书或风格指南作为一个静态应用来部署，这样，你的团队中的每个人都可以查看和审查不同状态的UI组件，而无需启动后台服务器或在应用中创建账户。
 
 ### Getting Started with Storybook
+开始使用故事书
 
-Storybook is a development environment for React UI components. It allows you to browse a component library, view the different states of each component, and interactively develop and test components.
+Storybook是一个用于React UI组件的开发环境。它允许您浏览一个组件库，查看每个组件的不同状态，并交互式地开发和测试组件。
 
-First, install the following npm package globally:
+首先, 全局安装npm包
 
 ```sh
 npm install -g @storybook/cli
 ```
 
-Then, run the following command inside your app’s directory:
+然后在你的应用目录下运行下面的命令
 
 ```sh
 getstorybook
 ```
 
-After that, follow the instructions on the screen.
+然后，按照屏幕上的说明进行操作.
 
-Learn more about React Storybook:
+阅读更多关于React Storybook:
 
-* Screencast: [Getting Started with React Storybook][236]
+* 截屏视频: [开始使用 React Storybook][236]
 * [GitHub Repo][237]
-* [Documentation][238]
-* [Snapshot Testing UI][239] with Storybook + addon/storyshot
+* [文档][238]
+* 使用 Storybook + addon/storyshot[快照测试 UI][239]
 
 ### Getting Started with Styleguidist
+开始使用Styleguidist
 
-Styleguidist combines a style guide, where all your components are presented on a single page with their props documentation and usage examples, with an environment for developing components in isolation, similar to Storybook. In Styleguidist you write examples in Markdown, where each code snippet is rendered as a live editable playground.
+Styleguidist结合了一个样式指南，所有的组件都放在一个单独的页面上，其中包含了它们的支持文档和使用示例，并且具有单独开发组件的环境，类似于故事书。在Styleguidist中，您可以在Markdown中编写示例，其中每个代码片段都被呈现为一个可实时编辑的游乐场。
 
-First, install Styleguidist:
+首先安装Styleguidist:
 
 ```sh
 npm install --save react-styleguidist
 ```
 
-Alternatively you may use `yarn`:
+你也可以使用 `yarn`:
 
 ```sh
 yarn add react-styleguidist
 ```
 
-Then, add these scripts to your `package.json`:
+然后添加这些脚本到 `package.json`:
 
 ```diff
    "scripts": {
@@ -1565,65 +1583,53 @@ Then, add these scripts to your `package.json`:
      "start": "react-scripts start",
 ```
 
-Then, run the following command inside your app’s directory:
+然后在你的应用文件夹运行下面的指令：:
 
 ```sh
 npm run styleguide
 ```
 
-After that, follow the instructions on the screen.
+然后，按照屏幕上的说明操作.
 
-Learn more about React Styleguidist:
+阅读更多关于React Styleguidist:
 
 * [GitHub Repo][240]
-* [Documentation][241]
+* [文档][241]
 
 ## Making a Progressive Web App
+制作一个渐进的网页应用
 
-By default, the production build is a fully functional, offline-first
-[Progressive Web App][242].
+默认情况下，生产构建是一个完全功能的、离线优先的[渐进 Web App][242].
 
-Progressive Web Apps are faster and more reliable than traditional web pages, and provide an engaging mobile experience:
+渐进网页应用比传统网页更快、更可靠，并且提供了一种引人入胜的移动体验:
 
- * All static site assets are cached so that your page loads fast on subsequent visits, regardless of network connectivity (such as 2G or 3G). Updates are downloaded in the background.
- * Your app will work regardless of network state, even if offline. This means your users will be able to use your app at 10,000 feet and on the Subway.
- * On mobile devices, your app can be added directly to the user's home screen, app icon and all. You can also re-engage users using web **push notifications**. This eliminates the need for the app store.
+ * 所有静态站点资源都被缓存，以便您的页面在后续访问时快速加载，而不管网络连接(比如2G或3G)。更新是在后台下载的。
+ * 无论网络状态如何，你的应用都能工作，即使离线。这意味着你的用户可以在1万英尺的高空使用你的应用.
+ * 在移动设备上，你的应用可以直接添加到用户的主屏幕、应用图标等等。您还可以使用web**推送通知**重新吸引用户。这就消除了对应用商店的需求.
 
-The [`sw-precache-webpack-plugin`][243]
-is integrated into production configuration,
-and it will take care of generating a service worker file that will automatically
-precache all of your local assets and keep them up to date as you deploy updates.
-The service worker will use a [cache-first strategy][244]
-for handling all requests for local assets, including the initial HTML, ensuring
-that your web app is reliably fast, even on a slow or unreliable network.
+[`sw-precache-webpack-plugin`][243]被集成到生产配置中，它会负责生成一个服务工作者文件,这个文件将自动预先缓存所有本地资源，并在部署更新时保持更新。
+这个服务工作者将使用一个 [缓存优先策略][244]来处理所有的对本地资源的请求，包含初始HTML， 确保你的网络应用程序是可靠的，即使是在一个缓慢或不可靠的网络上。
 
 ### Opting Out of Caching
+选择的缓存
 
-If you would prefer not to enable service workers prior to your initial
-production deployment, then remove the call to `serviceWorkerRegistration.register()`
-from [`src/index.js`][245].
+如果您不希望在您初始的生产部署之前启用服务人员，然后取消调用If you would prefer not to enable service workers prior to your initial
+production deployment, 那么取消从[`src/index.js`][245]调用`serviceWorkerRegistration.register()`。
 
-If you had previously enabled service workers in your production deployment and
-have decided that you would like to disable them for all your existing users,
-you can swap out the call to `serviceWorkerRegistration.register()` in
-[`src/index.js`][246] with a call to `serviceWorkerRegistration.unregister()`.
-After the user visits a page that has `serviceWorkerRegistration.unregister()`,
-the service worker will be uninstalled. Note that depending on how `/service-worker.js` is served,
-it may take up to 24 hours for the cache to be invalidated.
+如果您以前在您的生产部署中启用了服务人员，并且已经决定要禁用所有现有的用户，
+你可以在[`src/index.js`][246] 里调用`serviceWorkerRegistration.unregister()`替换调用`serviceWorkerRegistration.register()`来完成。
+在用户访问一个页面之后 `serviceWorkerRegistration.unregister()`,
+这个服务工作者将被注销. 注意 that 取决于 `/service-worker.js` 是怎样被服务的,缓存失效可能需要24个小时。
 
 ### Offline-First Considerations
+离线优先注意事项
+1. Service workers [需要 HTTPS][247],尽管为了促进本地测试，这一政策
+[不适用于 `localhost`][248].如果您的生产web服务器不支持HTTPS，那么服务工作者注册将会失败，但你的其他网页应用仍将保持功能。
 
-1. Service workers [require HTTPS][247],
-although to facilitate local testing, that policy
-[does not apply to `localhost`][248].
-If your production web server does not support HTTPS, then the service worker
-registration will fail, but the rest of your web app will remain functional.
+2. Service workers 在所有的web浏览器中 [目前不被支持][249]
+Service worker登记在不被支持的浏览器上 [不会被尝试][250]
 
-1. Service workers are [not currently supported][249]
-in all web browsers. Service worker registration [won't be attempted][250]
-on browsers that lack support.
-
-1. The service worker is only enabled in the [production environment][251],
+3. Service worker 仅在 [生产环境]中启用[251],
 e.g. the output of `npm run build`. It's recommended that you do not enable an
 offline-first service worker in a development environment, as it can lead to
 frustration when previously cached assets are used and do not include the latest

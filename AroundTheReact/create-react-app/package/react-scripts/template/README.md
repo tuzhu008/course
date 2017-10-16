@@ -2060,15 +2060,15 @@ Now offers a zero-configuration single-command deployment. You can use `now` to 
 
 Variable | Development | Production | Usage
 :--- | :---: | :---: | :---
-BROWSER | :white\_check\_mark: | :x: | By default, Create React App will open the default system browser, favoring Chrome on macOS. Specify a [browser][304] to override this behavior, or set it to `none` to disable it completely. If you need to customize the way the browser is launched, you can specify a node script instead. Any arguments passed to `npm start` will also be passed to this script, and the url where your app is served will be the last argument. Your script's file name must have the `.js` extension.
-HOST | :white\_check\_mark: | :x: | By default, the development web server binds to `localhost`. You may use this variable to specify a different host.
-PORT | :white\_check\_mark: | :x: | By default, the development web server will attempt to listen on port 3000 or prompt you to attempt the next available port. You may use this variable to specify a different port.
-HTTPS | :white\_check\_mark: | :x: | When set to `true`, Create React App will run the development server in `https` mode.
-PUBLIC\_URL | :x: | :white\_check\_mark: | Create React App assumes your application is hosted at the serving web server's root or a subpath as specified in [`package.json` (`homepage`)][305]. Normally, Create React App ignores the hostname. You may use this variable to force assets to be referenced verbatim to the url you provide (hostname included). This may be particularly useful when using a CDN to host your application.
-CI | :large\_orange\_diamond: | :white\_check\_mark: | When set to `true`, Create React App treats warnings as failures in the build. It also makes the test runner non-watching. Most CIs set this flag by default.
-REACT\_EDITOR | :white\_check\_mark: | :x: | When an app crashes in development, you will see an error overlay with clickable stack trace. When you click on it, Create React App will try to determine the editor you are using based on currently running processes, and open the relevant source file. You can [send a pull request to detect your editor of choice][306]. Setting this environment variable overrides the automatic detection. If you do it, make sure your systems [PATH][307] environment variable points to your editor’s bin folder.
-CHOKIDAR\_USEPOLLING | :white\_check\_mark: | :x: | When set to `true`, the watcher runs in polling mode, as necessary inside a VM. Use this option if `npm start` isn't detecting changes.
-GENERATE\_SOURCEMAP | :x: | :white\_check\_mark: | When set to `false`, source maps are not generated for a production build. This solves OOM issues on some smaller machines.
+BROWSER | :white\_check\_mark: | :x: | 默认情况下，Create React App会打开默认的系统浏览器，在macOS上支持Chrome。指定一个[浏览器][304]来覆盖该行为，或者将其设置为none，以完全禁用该行为。如果您需要自定义浏览器的启动方式，则可以指定一个node脚本。任何传递给`npm start`的参数都将传递给该脚本，而您的应用程序的url将是最后一个参数。您的脚本的文件名必须有`.js`扩展。
+HOST | :white\_check\_mark: | :x: | 默认情况下，开发web服务器绑定到`localhost`。您可以使用这个变量来指定一个不同的主机。
+PORT | :white\_check\_mark: | :x: | 默认情况下，开发web服务器将尝试侦听端口3000或提示您尝试下一个可用的端口。您可以使用这个变量来指定一个不同的端口
+HTTPS | :white\_check\_mark: | :x: | 当设置为`true`时，Create React App将在`https`模式下运行开发服务器。
+PUBLIC\_URL | :x: | :white\_check\_mark: | Create React App假设您的应用程序位于服务web服务器的根目录或[`package.json` (`homepage`)][305]中指定的子路径。通常，Create React App忽略主机名。您可以使用该变量强制将资源按原样引用到您提供的url(包括主机名)。当使用CDN来托管您的应用程序时，这可能特别有用。
+CI | :large\_orange\_diamond: | :white\_check\_mark: | 当设置为`true`时，Create React App将警告作为构建中的失败。它还使测试运行者不监视。大多数CIs默认设置此标志。
+REACT\_EDITOR | :white\_check\_mark: | :x: | 当一个应用程序在开发中崩溃时，您将看到一个错误在可点击的堆栈跟踪上叠加。当你点击它时，Create React App会尝试根据当前正在运行的进程来确定你正在使用的编辑器，并打开相关的源文件。您可以[发送一个pull请求来检测您选择编辑器][306]。设置这个环境变量会覆盖自动检测。如果您这样做，请确保您的系统[PATH][307]环境变量指向您的编辑器的bin文件夹。
+CHOKIDAR\_USEPOLLING | :white\_check\_mark: | :x: | 当设置为`true`时，观察者在VM中以轮询模式中运行是必要的。如果`npm start`没有检测到变化，那么就使用这个选项。
+GENERATE\_SOURCEMAP | :x: | :white\_check\_mark: | 当设置为`false`时，source maps不是为生产构建生成的。这就解决了一些小型机器上的OOM问题。
 
 ## Troubleshooting
 

@@ -2071,32 +2071,34 @@ CHOKIDAR\_USEPOLLING | :white\_check\_mark: | :x: | 当设置为`true`时，观�
 GENERATE\_SOURCEMAP | :x: | :white\_check\_mark: | 当设置为`false`时，source maps不是为生产构建生成的。这就解决了一些小型机器上的OOM问题。
 
 ## Troubleshooting
-
+故障排除
 ### `npm start` doesn’t detect changes
+`npm start`没有检测到变化
 
-When you save a file while `npm start` is running, the browser should refresh with the updated code.<br>
-If this doesn’t happen, try one of the following workarounds:
+当您在`npm start`运行时保存文件，浏览器应该使用更新后的代码进行刷新<br>
+如果没有如愿发生，尝试以下方法之一:
 
-* If your project is in a Dropbox folder, try moving it out.
-* If the watcher doesn’t see a file called `index.js` and you’re referencing it by the folder name, you [need to restart the watcher][308] due to a Webpack bug.
-* Some editors like Vim and IntelliJ have a “safe write” feature that currently breaks the watcher. You will need to disable it. Follow the instructions in [“Adjusting Your Text Editor”][309].
-* If your project path contains parentheses, try moving the project to a path without them. This is caused by a [Webpack watcher bug][310].
-* On Linux and macOS, you might need to [tweak system settings][311] to allow more watchers.
-* If the project runs inside a virtual machine such as (a Vagrant provisioned) VirtualBox, create an `.env` file in your project directory if it doesn’t exist, and add `CHOKIDAR_USEPOLLING=true` to it. This ensures that the next time you run `npm start`, the watcher uses the polling mode, as necessary inside a VM.
+* 如果你的项目在Dropbox的云文件夹，尝试移动它。
+* 如果观察者没有看到一个名为`index.js`的文件，并且你用文件夹的名字来引用它，你[需要重新启动观察者][308]，因为一个Webpack bug。
+* 一些像Vim和IntelliJ这样的编辑器有一个“安全的写”功能，它现在可以打破观察者。您需要禁用它。按照下面的说明来[“调整你的文本编辑器”][309]。
+* 如果您的项目路径包含括号，尝试将项目移到没有它们的路径中。 这是由于一个[Webpack watcher bug][310].
+* 在 Linux 和 macOS上, 你可能需要 [调整系统设置][311]来允许更多的观察者。
+* 如果项目在虚拟机中运行，比如(a Vagrant provisioned)VirtualBox，就在你的项目目录创建一个 `.env`文件，如果它不存在的话，并添加`CHOKIDAR_USEPOLLING=true`到它里面。这确保下次运行`npm start`时，观察者在VM中使用轮询模式。
 
-If none of these solutions help please leave a comment [in this thread][312].
+如果这些解决方案中没有一个能帮助请[在这个帖子中][312]留言。
 
 ### `npm test` hangs on macOS Sierra
+`npm test`挂在macOS Sierra上
 
-If you run `npm test` and the console gets stuck after printing `react-scripts test --env=jsdom` to the console there might be a problem with your [Watchman][313] installation as described in [facebookincubator/create-react-app#713][314].
+If you run `npm test` and the console gets stuck after printing `react-scripts test --env=jsdom` to the console there might be a problem with your [Watchman][313] installation as described in [facebookincubator/create-react-app#713][314].如果你运行`npm test`，控制台在打印`react-scripts test --env=jsdom`到控制台后会卡住，这可能是你的[Watchman][313]安装有问题，就像[facebookincubator/create-react-app#713][314]描述。
 
-We recommend deleting `node_modules` in your project and running `npm install` (or `yarn` if you use it) first. If it doesn't help, you can try one of the numerous workarounds mentioned in these issues:
+我们建议在您的项目中删除`node_modules`，并先运行`npm install`(或者`yarn`)。如果没有帮助，您可以尝试在这些问题中提到的众多解决方案中找到一个:
 
 * [facebook/jest#1767][315]
 * [facebook/watchman#358][316]
 * [ember-cli/ember-cli#6259][317]
 
-It is reported that installing Watchman 4.7.0 or newer fixes the issue. If you use [Homebrew][318], you can run these commands to update it:
+据报道，安装Watchman4.7.0或更新补丁将解决这个问题。如果你使用[Homebrew][318]，你可以运行这些命令来更新它:
 
 ```
 watchman shutdown-server
@@ -2104,38 +2106,41 @@ brew update
 brew reinstall watchman
 ```
 
-You can find [other installation methods][319] on the Watchman documentation page.
+你可以在 Watchman 文档页面找到[其他的安装方法][319].
 
-If this still doesn’t help, try running `launchctl unload -F ~/Library/LaunchAgents/com.github.facebook.watchman.plist`.
+如果这仍然没有帮助, 尝试运行 `launchctl unload -F ~/Library/LaunchAgents/com.github.facebook.watchman.plist`.
 
-There are also reports that *uninstalling* Watchman fixes the issue. So if nothing else helps, remove it from your system and try again.
+还有报道称，卸载Watchman就解决了这个问题。所以如果没有其他的帮助，把它从你的系统中移除，再试一次。
 
 ### `npm run build` exits too early
+`npm run build`过早退出
 
-It is reported that `npm run build` can fail on machines with limited memory and no swap space, which is common in cloud environments. Even with small projects this command can increase RAM usage in your system by hundreds of megabytes, so if you have less than 1 GB of available memory your build is likely to fail with the following message:
+据报道，`npm run build`在内存有限的机器上可能会失败，并且没有交换空间，这在云环境中是很常见的。即使是小的项目，这个命令也可以使系统中的RAM使用率增加几百兆字节，所以如果您的可用内存不足1 GB，那么您的构建很可能会失败，伴随以下消息中:
 
->  The build failed because the process exited too early. This probably means the system ran out of memory or someone called `kill -9` on the process.
+>  构建失败是因为流程过早退出。这可能意味着系统内存耗尽或者某个在进程中被称为`kill -9`.
 
-If you are completely sure that you didn't terminate the process, consider [adding some swap space][320] to the machine you’re building on, or build the project locally.
+如果您完全确定您没有终止进程，那么考虑在您正在构建的机器上[增加一些交换空间][320]，或者在本地构建项目。
 
 ### `npm run build` fails on Heroku
+`npm run build`在Heroku上发生错误
 
-This may be a problem with case sensitive filenames.
-Please refer to [this section][321].
+这可能是带有大小写敏感文件名的问题。
+请参考[这个小节][321].
 
 ### Moment.js locales are missing
+Moment.js locales丢失
 
-If you use a [Moment.js][322], you might notice that only the English locale is available by default. This is because the locale files are large, and you probably only need a subset of [all the locales provided by Moment.js][323].
+如果你使用 [Moment.js][322], 您可能会注意到，默认情况下只有英语语言环境可用。这是因为地区文件很大，您可能只需要[Moment.js提供的所有地区][323]的一个子集。
 
-To add a specific Moment.js locale to your bundle, you need to import it explicitly.<br>
-For example:
+添加一个具体的Moment.js地区到你的包，你需要显示地导入它.<br>
+例如:
 
 ```js
 import moment from 'moment';
 import 'moment/locale/fr';
 ```
 
-If import multiple locales this way, you can later switch between them by calling `moment.locale()` with the locale name:
+如果以这种方式导入多个地区，您可以通过使用地区名称调用`moment.locale()`来在它们之间进行切换:
 
 ```js
 import moment from 'moment';
@@ -2147,21 +2152,23 @@ import 'moment/locale/es';
 moment.locale('fr');
 ```
 
-This will only work for locales that have been explicitly imported before.
+这只适用于以前明确导入的地区。
 
 ### `npm run build` fails to minify
+`npm run build` 压缩失败
 
-You may occasionally find a package you depend on needs compiled or ships code for a non-browser environment.<br>
-This is considered poor practice in the ecosystem and does not have an escape hatch in Create React App.<br>
+您可能偶尔会发现您所依赖的包需要编译或为非浏览器环境提供代码。<br>
+这在生态系统中被认为是很糟糕的做法，在Create React App中并没有一个escape hatch(逃生出口)
 <br>
 To resolve this:
-1. Open an issue on the dependency's issue tracker and ask that the package be published pre-compiled (retaining ES6 Modules).
-2. Fork the package and publish a corrected version yourself.
-3. If the dependency is small enough, copy it to your `src/` folder and treat it as application code.
+1. 打开一个关于依赖关系的问题跟踪器的问题，并要求该包发布预编译(保留ES6模块).
+2. Fork 这个包并且发布一个更正的版本.
+3. 如果依赖项足够小，可以将其复制到`src/`文件夹中，并将其作为应用程序代码进行处理.
 
 ## Something Missing?
+遗漏？
 
-If you have ideas for more “How To” recipes that should be on this page, [let us know][324] or [contribute some!][325]
+如果你有更多关于“How To”的而这个页面没有的出现的想法, [让我知道][324] 或者 [贡献你的力量!][325]
 
 [1]:	https://github.com/facebookincubator/create-react-app
 [2]:	https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md

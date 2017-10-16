@@ -1630,82 +1630,54 @@ production deployment, 那么取消从[`src/index.js`][245]调用`serviceWorkerR
 Service worker登记在不被支持的浏览器上 [不会被尝试][250]
 
 3. Service worker 仅在 [生产环境]中启用[251],
-e.g. the output of `npm run build`. It's recommended that you do not enable an
-offline-first service worker in a development environment, as it can lead to
-frustration when previously cached assets are used and do not include the latest
-changes you've made locally.
+例如  `npm run build`的输出. 建议你不要在开发环境中启用离线的服务工作人员，因为它可能导致在使用之前缓存的资源时会感到沮丧，并且不包括你在本地更改过的最新的资源。也就是说当你本地的资源已经更新时，这个缓存的资源不会得到更新，并且在使用的时候还是使用的缓存资源。
 
-1. If you *need* to test your offline-first service worker locally, build
+4. If you *need* to test your offline-first service worker locally, build
 the application (using `npm run build`) and run a simple http server from your
 build directory. After running the build script, `create-react-app` will give
 instructions for one way to test your production build locally and the [deployment instructions][252] have
 instructions for using other methods. \*Be sure to always use an
 incognito window to avoid complications with your browser cache.\*
 
-1. If possible, configure your production environment to serve the generated
-`service-worker.js` [with HTTP caching disabled][253].
-If that's not possible—[GitHub Pages][254], for instance, does not
-allow you to change the default 10 minute HTTP cache lifetime—then be aware
-that if you visit your production site, and then revisit again before
-`service-worker.js` has expired from your HTTP cache, you'll continue to get
-the previously cached assets from the service worker. If you have an immediate
-need to view your updated production deployment, performing a shift-refresh
-will temporarily disable the service worker and retrieve all assets from the
-network.
+5. 如果你 *需要* 在本地测试你的离线优先的服务工作者， 构建这个应用程序 (使用 `npm run build`) 并从你的构建目录运行一个简单的http服务器。 在运行构建脚本之后, `create-react-app` 将会给一个在本地测试你的生产构建的说明，并且 [部署说明][252] 包含其他使用方法的说明. \*一定要经常使用匿名窗口以避免浏览器缓存的复杂性。\*
 
-1. Users aren't always familiar with offline-first web apps. It can be useful to
-[let the user know][255]
-when the service worker has finished populating your caches (showing a "This web
-app works offline!" message) and also let them know when the service worker has
-fetched the latest updates that will be available the next time they load the
-page (showing a "New content is available; please refresh." message). Showing
-this messages is currently left as an exercise to the developer, but as a
-starting point, you can make use of the logic included in [`src/registerServiceWorker.js`][256], which
-demonstrates which service worker lifecycle events to listen for to detect each
-scenario, and which as a default, just logs appropriate messages to the
-JavaScript console.
+6. 如果可能，配置你的生产环境来服务于`service-worker.js` [禁用HTTP缓存][253].如果这是不可能的—例如，[GitHub Pages][254],  不允许你修改HTTP缓存默认的10分钟的生命周期，然后注意，如果你访问你的生产站点，然后在`service-worker.js`从HTTP缓存中过期之前再次访问，你会从服务器工作者得到先前缓存的资源。如果你有一个需要立即显示的更新的生产部署，执行一个shift-refresh(什么是shift-refresh，就是按着shift键再点击刷新按钮或者F5键刷新，区别在于这样会先清除缓存) 将暂时禁用服务器工作者，并且从网络检索所有资源。
 
-1. By default, the generated service worker file will not intercept or cache any
-cross-origin traffic, like HTTP [API requests][257],
-images, or embeds loaded from a different domain. If you would like to use a
-runtime caching strategy for those requests, you can [`eject`][258]
-and then configure the
-[`runtimeCaching`][259]
-option in the `SWPrecacheWebpackPlugin` section of
-[`webpack.config.prod.js`][260].
+7. 用户并不总是熟悉离线优先的web应用。 它会有很用
+[让用户知道][255]当服务器工作者已经完成填充你的缓存时
+(显示一个"这个web应用可以离线使用!" 的信息) 并且让他们知道服务器工作者什么时候什么时候获取最新的更新，这些更新将会在下次加载页面的时候被应用。(显示一个 "新内容可用，请刷新." 的信息).显示此消息目前作为开发人员的一个练习，但作为一个起点，你可以使逻辑包含在[`src/registerServiceWorker.js`][256]中，哪一个演示哪些服务工作者生命周期事件，以侦听每一个事件场景，作为缺省的，只是将适当的消息记录到JavaScript控制台。 
+
+8. 默认情况下，生成的服务工作者文件将不截取或缓存任何跨域交通，就像HTTP[API 请求][257]，图片，或者从不同的域加载的嵌入。如果你想为这些请求使用一个运行时缓存策略，你可以[`eject`]，然后在[`webpack.config.prod.js`][260]的`SWPrecacheWebpackPlugin`小节中配置[`runtimeCaching`][259]选项
 
 ### Progressive Web App Metadata
 
-The default configuration includes a web app manifest located at
-[`public/manifest.json`][261], that you can customize with
-details specific to your web application.
+渐进的Web应用元数据
 
-When a user adds a web app to their homescreen using Chrome or Firefox on
-Android, the metadata in [`manifest.json`][262] determines what
-icons, names, and branding colors to use when the web app is displayed.
-[The Web App Manifest guide][263]
-provides more context about what each field means, and how your customizations
-will affect your users' experience.
+默认的配置包含一个web应用清单文件，位于[`public/manifest.json`][261]，这个文件使你可以自定义应用程序的详细信息。
+
+当用户在Android上使用Chrome或Firefox将一个网页应用添加他们的主屏幕上时，
+，[`manifest.json`][262]中的元数据决定了当web应用程序显示时，什么图标、名称和品牌颜色将被使用。
+
+[Web App Manifest指南][263]提供更多关于每个字段意思的上下文，以及您的自定义会怎样影响你的用户体验。
 
 ## Analyzing the Bundle Size
+分析包的大小
 
-[Source map explorer][264] analyzes
-JavaScript bundles using the source maps. This helps you understand where code
-bloat is coming from.
+[Source map 资源管理器][264]使用source maps分析JavaScript包的大小。这这有助于你理解代码在哪里变得膨胀。
 
-To add Source map explorer to a Create React App project, follow these steps:
+添加Source map资源管理器到 Create React App 项目, 遵循下面的步骤:
 
 ```sh
 npm install --save source-map-explorer
 ```
 
-Alternatively you may use `yarn`:
+你也可以使用 `yarn`:
 
 ```sh
 yarn add source-map-explorer
 ```
 
-Then in `package.json`, add the following line to `scripts`:
+然后在 `package.json`中, 添加下面的行到`scripts`:
 
 ```diff
    "scripts": {
@@ -1715,9 +1687,7 @@ Then in `package.json`, add the following line to `scripts`:
      "test": "react-scripts test --env=jsdom",
 ```
 
-Then to analyze the bundle run the production build then run the analyze
-script.
-
+然后就可以运行生产构建，接着运行analyze脚本来分析包的大小：
 ```
 npm run build
 npm run analyze
@@ -1725,30 +1695,33 @@ npm run analyze
 
 ## Deployment
 
-`npm run build` creates a `build` directory with a production build of your app. Set up your favourite HTTP server so that a visitor to your site is served `index.html`, and requests to static paths like `/static/js/main.<hash>.js` are served with the contents of the `/static/js/main.<hash>.js` file.
+部署
+`npm run build` 在生产构建时会创建一个 `build` 目录. 设置您最喜欢的HTTP服务器，以便访问您的站点的访问者为`index.html`服务,并且请求像`/static/js/main.<hash>.js`这样的静态路径会和`/static/js/main.<hash>.js`文件的内容一起被提供 。
 
 ### Static Server
+静态服务器
 
-For environments using [Node][265], the easiest way to handle this would be to install [serve][266] and let it handle the rest:
+对于使用[Node][265]环境的最简单的方法是安装[serve][266]来处理:
 
 ```sh
 npm install -g serve
 serve -s build
 ```
 
-The last command shown above will serve your static site on the port **5000**. Like many of [serve][267]’s internal settings, the port can be adjusted using the `-p` or `--port` flags.
+上面显示的最后一个命令将在端口**5000**上为您的静态站点提供服务。与许多[serve][267]的内部设置一样，端口可以使用`-p`或`--port`标记进行调整。
 
-Run this command to get a full list of the options available:
+运行此命令以获得可用选项的完整列表:
 
 ```sh
 serve -h
 ```
 
 ### Other Solutions
+其他的解决方案
 
-You don’t necessarily need a static server in order to run a Create React App project in production. It works just as fine integrated into an existing dynamic one.
+为了在生产中运行一个Create React App项目，您不一定需要一个静态服务器。它与现有的动态服务器可以很好地集成在一起。
 
-Here’s a programmatic example using [Node][268] and [Express][269]:
+下面是一个使用 [Node][268] 和 [Express][269]的例子:
 
 ```javascript
 const express = require('express');
@@ -1764,17 +1737,18 @@ app.get('/', function (req, res) {
 app.listen(9000);
 ```
 
-The choice of your server software isn’t important either. Since Create React App is completely platform-agnostic, there’s no need to explicitly use Node.
+您的服务器软件的选择也不重要。由于Create React App完全是平台无关的，所以不需要显式地使用Node。
 
-The `build` folder with static assets is the only output produced by Create React App.
+带有静态资源的`build`文件夹是Create React App**惟一输出**
 
-However this is not quite enough if you use client-side routing. Read the next section if you want to support URLs like `/todos/42` in your single-page app.
+但是，如果使用客户端路由，这还不够。如果你想在单页应用中支持像`/todo/42`这样的url，请阅读下一节。
 
 ### Serving Apps with Client-Side Routing
+使用客户端路由服务应用程序
 
-If you use routers that use the HTML5 [`pushState` history API][270] under the hood (for example, [React Router][271] with `browserHistory`), many static file servers will fail. For example, if you used React Router with a route for `/todos/42`, the development server will respond to `localhost:3000/todos/42` properly, but an Express serving a production build as above will not.
+在底层，如果使用HTML5的[`pushState` history API][270] (例如, [React Router][271] with `browserHistory`), 许多静态文件服务器将会失败. 例如，如果您使用的是React Router和`/todo/42`的路由，开发服务器将会对`localhost:3000/todo/42`做出响应，但是对于一个生产构建的服务将不会这样做。 
 
-This is because when there is a fresh page load for a `/todos/42`, the server looks for the file `build/todos/42` and does not find it. The server needs to be configured to respond to a request to `/todos/42` by serving `index.html`. For example, we can amend our Express example above to serve `index.html` for any unknown paths:
+This is because when there is a fresh page load for a `/todos/42`, the server looks for the file `build/todos/42` and does not find it. The server needs to be configured to respond to a request to `/todos/42` by serving `index.html`. For example, we can amend our Express example above to serve `index.html` for any unknown paths:这是因为当`/todo/42`有一个新的页面加载时，服务器查找文件`build/todo/42`，并且没有找到它。服务器需要配置为通过服务`index.html`来响应对`/todo/42`的请求。例如，我们可以修改上面的Express示例来服务`index.html`，用于任何未知路径:
 
 ```diff
  app.use(express.static(path.join(__dirname, 'build')));
@@ -1785,7 +1759,7 @@ This is because when there is a fresh page load for a `/todos/42`, the server lo
  });
 ```
 
-If you’re using [Apache HTTP Server][272], you need to create a `.htaccess` file in the `public` folder that looks like this:
+如果你使用[Apache HTTP Server][272]，你需要在`public`文件夹创建一个`.htaccess`文件，像这样
 
 ```
     Options -MultiViews
@@ -1794,20 +1768,15 @@ If you’re using [Apache HTTP Server][272], you need to create a `.htaccess` fi
     RewriteRule ^ index.html [QSA,L]
 ```
 
-It will get copied to the `build` folder when you run `npm run build`. 
+在运行`npm run build`时，它将被复制到`build`文件夹中。
 
-If you’re using [Apache Tomcat][273], you need to follow [this Stack Overflow answer][274].
+如果你使用 [Apache Tomcat][273],你需要跟随 [这个Stack Overflow 回答][274].
 
-Now requests to `/todos/42` will be handled correctly both in development and in production.
+现在，对`/todo/42`的请求将在开发和生产中得到正确的处理。
 
-On a production build, and in a browser that supports [service workers][275],
-the service worker will automatically handle all navigation requests, like for
-`/todos/42`, by serving the cached copy of your `index.html`. This
-service worker navigation routing can be configured or disabled by
-[`eject`ing][276] and then modifying the
-[`navigateFallback`][277]
-and [`navigateFallbackWhitelist`][278]
-options of the `SWPreachePlugin` [configuration][279].
+在生产构建和支持[service workers][275]的浏览器中，服务工作者将自动处理所有的导航请求，例如`/todo/42`，通过提供您的`index.html`的缓存副本。
+服务工作者导航路由可以被[`eject`ing][276]配置或禁用，然后修改
+[' navigateFallback '][277]和`SWPreachePlugin` [configuration][279]的[' navigateFallbackWhitelist '][278]选项。
 
 ### Building for Relative Paths
 

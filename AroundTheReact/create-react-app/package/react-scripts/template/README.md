@@ -1938,29 +1938,30 @@ npm run deploy
 
 <img src="http://i.imgur.com/HUjEr9l.png" width="500" alt="gh-pages branch setting">
 
-#### Step 5: Optionally, configure the domain
+#### Step 5: 可选的, 配置域
 
-You can configure a custom domain with GitHub Pages by adding a `CNAME` file to the `public/` folder.
+你可以在Github Pages添加`CNAME`文件到`public`文件夹来配置一个自定义的域。
 
-#### Notes on client-side routing
+#### 客户端路由注意事项
 
-GitHub Pages doesn’t support routers that use the HTML5 `pushState` history API under the hood (for example, React Router using `browserHistory`). This is because when there is a fresh page load for a url like `http://user.github.io/todomvc/todos/42`, where `/todos/42` is a frontend route, the GitHub Pages server returns 404 because it knows nothing of `/todos/42`. If you want to add a router to a project hosted on GitHub Pages, here are a couple of solutions:
+GitHub Pages 不支持在底层上使用HTML5 `pushState` history API的路由(例如, React Router 使用 `browserHistory`).这是因为当一个url像`http://user.github.io/todomvc/todos/42`的新页面加载时，`/todos/42`是一个前端路由，Github Pages服务器会返回404,因为它不知道`/todos/42`为何物。如果你想添加一个路由到Github Pages托管的项目，这儿有两个解决方案:
 
-* You could switch from using HTML5 history API to routing with hashes. If you use React Router, you can switch to `hashHistory` for this effect, but the URL will be longer and more verbose (for example, `http://user.github.io/todomvc/#/todos/42?_k=yknaj`). [Read more][288] about different history implementations in React Router.
-* Alternatively, you can use a trick to teach GitHub Pages to handle 404 by redirecting to your `index.html` page with a special redirect parameter. You would need to add a `404.html` file with the redirection code to the `build` folder before deploying your project, and you’ll need to add code handling the redirect parameter to `index.html`. You can find a detailed explanation of this technique [in this guide][289].
+* 你可以从使用HTML5 history API切换到使用哈希的路由。如果你使用React Router,你可以切换到`hashHistory`来实现这个效果，但是URL会因此变得很长也更详细 (例如, `http://user.github.io/todomvc/#/todos/42?_k=yknaj`). [阅读更多][288] 关于在React Router中不同的history实现
+* 另外,你可以使用一个技巧来教 GitHub Pages 通过使用特殊的重定向参数重定向到`index.html`页面来处理404。你需要在部署你的项目之前添加一个包含重定向代码的`404.html`文件到`build`文件夹，并且你需要添加处理重定向参数的代码到`index.html`。你可以找到对这种技术的详细解释[在这个指南][289].
 
 ### [Heroku][290]
 
-Use the [Heroku Buildpack for Create React App][291].<br>
-You can find instructions in [Deploying React with Zero Configuration][292].
+使用[Heroku Buildpack for Create React App][291].<br>
+你可参阅 [零配置部署 React][292].
 
 #### Resolving Heroku Deployment Errors
+解决Heroku部署错误
 
-Sometimes `npm run build` works locally but fails during deploy via Heroku. Following are the most common cases.
+有时候 `npm run build`在本地正常工作，但在通过Heroku部署时出现错误。以下是一些常见的情况。
 
 ##### "Module not found: Error: Cannot resolve 'file' or 'directory'"
 
-If you get something like this:
+如果你得到像这样的错误:
 
 ```
 remote: Failed to create a production build. Reason:
@@ -1968,13 +1969,13 @@ remote: Module not found: Error: Cannot resolve 'file' or 'directory'
 MyDirectory in /tmp/build_1234/src
 ```
 
-It means you need to ensure that the lettercase of the file or directory you `import` matches the one you see on your filesystem or on GitHub.
+这意味着您需要确保您导入的文件或目录的大小写与您在文件系统或GitHub上所看到的文件相匹配
 
-This is important because Linux (the operating system used by Heroku) is case sensitive. So `MyDirectory` and `mydirectory` are two distinct directories and thus, even though the project builds locally, the difference in case breaks the `import` statements on Heroku remotes.
+这很重要，因为Linux(Heroku使用的操作系统)是很敏感的。因此，`MyDirectory`和`myDirectory`是两个不同的目录，因此，即使项目是在本地构建的，不同的情况也会破坏Heroku远程上的`import` 语句。
 
 ##### "Could not find a required file."
 
-If you exclude or ignore necessary files from the package you will see a error similar this one:
+如果排除或忽略包中的必要文件，就会看到类似的错误:
 
 ```
 remote: Could not find a required file.
@@ -1985,76 +1986,77 @@ remote: npm ERR! Linux 3.13.0-105-generic
 remote: npm ERR! argv "/tmp/build_a2875fc163b209225122d68916f1d4df/.heroku/node/bin/node" "/tmp/build_a2875fc163b209225122d68916f1d4df/.heroku/node/bin/npm" "run" "build"
 ```
 
-In this case, ensure that the file is there with the proper lettercase and that’s not ignored on your local `.gitignore` or `~/.gitignore_global`.
+在本例中，确保该文件与它的字母大小写，并且在本地不会被忽略`.gitignore`或`~ / .gitignore_global`。
 
 ### [Netlify][293]
 
-**To do a manual deploy to Netlify’s CDN:**
+**手动部署Netlify的CDN:**
 
 ```sh
 npm install netlify-cli
 netlify deploy
 ```
 
-Choose `build` as the path to deploy.
+选择 `build` 作为部署文件夹.
 
-**To setup continuous delivery:**
+**To setup continuous delivery设置持续交付:**
 
-With this setup Netlify will build and deploy when you push to git or open a pull request:
+有了这个设置，当你推到git或打开一个拉取请求时，Netlify将会构建和部署。:
 
-1. [Start a new netlify project][294]
-2. Pick your Git hosting service and select your repository
-3. Click `Build your site`
+1. [开始一个新的netlify项目][294]
+2. 选择您的Git托管服务并选择您的存储库
+3. 点击 `Build your site`
 
-**Support for client-side routing:**
+**支持客户端路由:**
 
-To support `pushState`, make sure to create a `public/_redirects` file with the following rewrite rules:
+为了支持 `pushState`,请使用下面的重写规则创建一个`public/_redirects`文件 :
 
 ```
 /*  /index.html  200
 ```
 
-When you build the project, Create React App will place the `public` folder contents into the build output.
+当你构建这个项目时，Create React App将把`public`文件夹的内容放到构建输出中。
 
 ### [Now][295]
 
-Now offers a zero-configuration single-command deployment. You can use `now` to deploy your app for free.
+Now offers a zero-configuration single-command deployment. You can use `now` to deploy your app for free.现在提供了一个零配置的单命令部署。你可以使用`now`来免费部署你的应用了。
 
-1. Install the `now` command-line tool either via the recommended [desktop tool][296] or via node with `npm install -g now`.
+1. 安装 `now` 命令行工具， 通过推荐的 [desktop tool][296] 或者 通过 node的`npm install -g now`命令 .
 
-2. Build your app by running `npm run build`.
+2. 使用 `npm run build`来构建你的应用.
 
-3. Move into the build directory by running `cd build`.
+3. 运行`cd build`来移步到构建目录.
 
-4. Run `now --name your-project-name` from within the build directory. You will see a **now.sh** URL in your output like this:
+4. 从构建目录运行 `now --name your-project-name` . 你将在输出中看到 **now.sh** URL ，像这样:
 
 	```
 	> Ready! https://your-project-name-tpspyhtdtk.now.sh (copied to clipboard)
 	```
 
-	Paste that URL into your browser when the build is complete, and you will see your deployed app.
+	当构建完成时，将该URL粘贴到浏览器中，您将看到已部署的应用程序。
 
-Details are available in [this article.][297]
+可用的细节在[这篇文章中.][297]
 
 ### [S3][298] and [CloudFront][299]
 
-See this [blog post][300] on how to deploy your React app to Amazon Web Services S3 and CloudFront.
+查看 [博客][300] 关于怎样部署你的React应用到亚马逊网络服务器S3和CloudFront
 
 ### [Surge][301]
 
-Install the Surge CLI if you haven’t already by running `npm install -g surge`. Run the `surge` command and log in you or create a new account.
+如果您还没有运行`npm install -g surge`，那么安装这个Surge CLI。运行`surge`命令，登录您或创建一个新帐户。
 
-When asked about the project path, make sure to specify the `build` folder, for example:
+当被问及项目路径时，请确保指定`build`文件夹，例如::
 
 ```sh
        project path: /path/to/project/build
 ```
 
-Note that in order to support routers that use HTML5 `pushState` API, you may want to rename the `index.html` in your build folder to `200.html` before deploying to Surge. This [ensures that every URL falls back to that file][302].
+注意，为了支持使用HTML5 `push HTML5` API的路由，你可能想要在部署Surge之前，在你的构建文件夹重命名`index.html`为`200.html`这是 [确保每个URL都返回到该文件][302].
 
 ## Advanced Configuration
+高级配置
 
-You can adjust various development and production settings by setting environment variables in your shell or with [.env][303].
+您可以通过在shell中设置环境变量或者[.env][303]来调整各种开发和生产设置。
 
 Variable | Development | Production | Usage
 :--- | :---: | :---: | :---

@@ -1779,46 +1779,50 @@ This is because when there is a fresh page load for a `/todos/42`, the server lo
 [' navigateFallback '][277]和`SWPreachePlugin` [configuration][279]的[' navigateFallbackWhitelist '][278]选项。
 
 ### Building for Relative Paths
+构建的相对路径
 
-By default, Create React App produces a build assuming your app is hosted at the server root.<br>
-To override this, specify the `homepage` in your `package.json`, for example:
+默认情况下，如果你的应用托管在服务器根目录，Create React App会生成一个 g偶见版本。<br>
+要覆盖这个，请在`package.json`中指定`homepage`主页。 例如:
 
 ```js
   "homepage": "http://mywebsite.com/relativepath",
 ```
 
-This will let Create React App correctly infer the root path to use in the generated HTML file.
+这将让Create React App正确地推断在生成的HTML文件中使用的根路径。
 
-**Note**: If you are using `react-router@^4`, you can root `<Link>`s using the `basename` prop on any `<Router>`.<br>
-More information [here][280].<br>
+**注意**: If you are using `react-router@^4`, you can root `<Link>`s using the `basename` prop on any `<Router>`.<br>
+More information [here][280].如果你使用 `react-router@^4`,你可以在任何`<Router>`上使用`basename`属性来为 `<Link>`指定根。也就是`basename`是下属`Link`标签的路径前缀。
+
+更多信息情查阅[这里][280]<br>
 <br>
-For example:
+例如:
 ```js
 <BrowserRouter basename="/calendar"/>
 <Link to="/today"/> // renders <a href="/calendar/today">
 ```
 
 #### Serving the Same Build from Different Paths
+从不同的路径中提供相同的构建
 
-> Note: this feature is available with `react-scripts@0.9.0` and higher.
+> 注意: 这个特性需要 `react-scripts@0.9.0` 和更高版本.
 
-If you are not using the HTML5 `pushState` history API or not using client-side routing at all, it is unnecessary to specify the URL from which your app will be served. Instead, you can put this in your `package.json`:
+如果您没有使用HTML5 `pushState` history API，或者根本不使用客户端路由，那么就没有必要指定您的应用程序将提供的URL。相反，你可以把它放在你的`package.json`中:
 
 ```js
   "homepage": ".",
 ```
 
-This will make sure that all the asset paths are relative to `index.html`. You will then be able to move your app from `http://mywebsite.com` to `http://mywebsite.com/relativepath` or even `http://mywebsite.com/relative/path` without having to rebuild it.
+这使得可以明确所有的资源相对于`index.html`的相对路径。 然后你就可以将你的应用从`http://mywebsite.com` 移动到`http://mywebsite.com/relativepath` 或者甚至在不重新构建的情况下移动到 `http://mywebsite.com/relative/path`。因为是相对路径，所以整体移动项目文件夹对它并无影响。
 
 ### [Azure][281]
 
-See [this][282] blog post on how to deploy your React app to Microsoft Azure.
+查看 [这个][282] 博客查看怎样将你的React应用贴到微软的Azure.(微软的云平台)
 
 ### [Firebase][283]
 
-Install the Firebase CLI if you haven’t already by running `npm install -g firebase-tools`. Sign up for a [Firebase account][284] and create a new project. Run `firebase login` and login with your previous created Firebase account.
+如果你还未运行`npm install -g firebase-tools`安装Firebase脚手架工具，请安装它。注册一个[Firebase 账号][284]并创建一个新项目。使用刚才创建的账号运行`firebase login`进行登录。
 
-Then run the `firebase init` command from your project’s root. You need to choose the **Hosting: Configure and deploy Firebase Hosting sites** and choose the Firebase project you created in the previous step. You will need to agree with `database.rules.json` being created, choose `build` as the public directory, and also agree to **Configure as a single-page app** by replying with `y`.
+然后从你的项目根目录运行`firebase init`命令。 你需要选择 **Hosting: Configure and deploy Firebase Hosting sites** 并且选择你之前的步奏中创建的Firebase项目. 你需要同意 `database.rules.json` 被创建, 选择 `build` 作为公共目录, 然后需要通过回复`y`来同意**Configure as a single-page app**，配置为一个单页应用。
 
 ```sh
     === Project Setup
@@ -1855,7 +1859,7 @@ Then run the `firebase init` command from your project’s root. You need to cho
     ✔  Firebase initialization complete!
 ```
 
-Now, after you create a production build with `npm run build`, you can deploy it by running `firebase deploy`.
+现在，在你使用`npm run build`创建了一个生产构建之后，你可以运行`firebase deploy`来部署它。
 
 ```sh
     === Deploying to 'example-app-fd690'...
@@ -1873,42 +1877,42 @@ Now, after you create a production build with `npm run build`, you can deploy it
     Hosting URL: https://example-app-fd690.firebaseapp.com
 ```
 
-For more information see [Add Firebase to your JavaScript Project][285].
+参阅 [添加 Firebase到你的JavaScript项目][285]，获得更多信息.
 
 ### [GitHub Pages][286]
-
-> Note: this feature is available with `react-scripts@0.2.0` and higher.
+GitHub页面
+> 注意: 这个特性需要 `react-scripts@0.2.0` 和更高.
 
 #### Step 1: Add `homepage` to `package.json`
 
-**The step below is important!**<br>
-**If you skip it, your app will not deploy correctly.**
+**下面的步骤很重要!**<br>
+**如果你跳过它，你的应用就不能正确部署.**
 
-Open your `package.json` and add a `homepage` field:
+打开 `package.json` 并添加 `homepage` 字段:
 
 ```js
   "homepage": "https://myusername.github.io/my-app",
 ```
 
-Create React App uses the `homepage` field to determine the root URL in the built HTML file.
+Create React App 使用 `homepage` 字段来确定构建的HTML文件的根URL
 
-#### Step 2: Install `gh-pages` and add `deploy` to `scripts` in `package.json`
+#### Step 2: 安装 `gh-pages` 并且添加 `deploy` 到 `package.json`的`scripts` 段落
 
-Now, whenever you run `npm run build`, you will see a cheat sheet with instructions on how to deploy to GitHub Pages.
+现在，无论何时运行`npm run build`，您都会看到一个关于如何部署到GitHub Pages的备忘单。
 
-To publish it at [https://myusername.github.io/my-app][287], run:
+在 [https://myusername.github.io/my-app][287] 发布它, run:
 
 ```sh
 npm install --save gh-pages
 ```
 
-Alternatively you may use `yarn`:
+你也可以使用 `yarn`:
 
 ```sh
 yarn add gh-pages
 ```
 
-Add the following scripts in your `package.json`:
+添加下面的脚本到你的 `package.json`:
 
 ```diff
   "scripts": {
@@ -1918,19 +1922,19 @@ Add the following scripts in your `package.json`:
     "build": "react-scripts build",
 ```
 
-The `predeploy` script will run automatically before `deploy` is run.
+`predeploy` 脚本将在`deploy`运行之前自动运行。
 
-#### Step 3: Deploy the site by running `npm run deploy`
+#### Step 3: 运行`npm run deploy`部署站点
 
-Then run:
+然后运行 :
 
 ```sh
 npm run deploy
 ```
 
-#### Step 4: Ensure your project’s settings use `gh-pages`
+#### Step 4: 确保你的项目设置使用了`gh-pages`
 
-Finally, make sure **GitHub Pages** option in your GitHub project settings is set to use the `gh-pages` branch:
+最后, 确保 **GitHub Pages** 选项在你的github项目设置里是使用`gh-pages`分支:
 
 <img src="http://i.imgur.com/HUjEr9l.png" width="500" alt="gh-pages branch setting">
 
